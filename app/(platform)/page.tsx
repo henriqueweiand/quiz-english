@@ -7,16 +7,11 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Form } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
+import { Card } from "./_components/game/card";
+import { Question } from "./_components/game/question";
+import { Text } from "./_components/game/text";
 
 interface AppPageProps {
   params: {};
@@ -36,7 +31,7 @@ type Option = {
   isCorrect: boolean;
 };
 
-type Question = {
+export type Question = {
   title: string;
   options?: Option[];
   type: OptionType;
@@ -97,52 +92,17 @@ const AppPage = ({ params }: AppPageProps) => {
   return (
     <div className="max-w-lg mx-auto h-full">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex justify-between p-10 flex-col bg-white rounded-lg w-full h-full"
-        >
-          <div className="flex flex-col gap-4">
-            <Progress value={20} className="w-[100%]" />
-            <div className="text-gray-700">{text.content}</div>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
+          <Card>
+            <div className="flex flex-col gap-4">
+              <Progress value={20} className="w-[100%]" />
+              <Text value={text.content} />
 
-            <FormField
-              control={form.control}
-              name="answer"
-              render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel>{question.title}</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex flex-col space-y-1"
-                    >
-                      {question.type !== "writing" && (
-                        <>
-                          {question.options.map((option) => (
-                            <FormItem
-                              key={option.id}
-                              className="flex items-center space-x-3 space-y-0"
-                            >
-                              <FormControl>
-                                <RadioGroupItem value={option.content} />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                {option.content}
-                              </FormLabel>
-                            </FormItem>
-                          ))}
-                        </>
-                      )}
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+              <Question form={form} question={question} />
+            </div>
 
-          <Button type="submit">Submit</Button>
+            <Button type="submit">Submit</Button>
+          </Card>
         </form>
       </Form>
     </div>
