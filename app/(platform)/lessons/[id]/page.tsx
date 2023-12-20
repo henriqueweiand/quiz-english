@@ -20,7 +20,7 @@ const LessonPage = async ({ params }: LessonPageProps) => {
 
   return (
     <>
-      <div>{params.id}</div>
+      <div>{lesson.title}</div>
       {/* <div>{JSON.stringify(lesson)}</div> */}
 
       <Link href={link}>

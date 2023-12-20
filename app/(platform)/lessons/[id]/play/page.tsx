@@ -4,13 +4,13 @@ import { getLesson } from "@/lib/get-lesson";
 import { extractQuestions } from "@/lib/lesson-service";
 import { Game } from "@/app/(platform)/_components/game";
 
-interface LessonPageProps {
+interface PlayPageProps {
   params: {
     id: string;
   };
 }
 
-const LessonPage = async ({ params }: LessonPageProps) => {
+const PlayPage = async ({ params }: PlayPageProps) => {
   if (!params.id) {
     redirect("/lessons");
   }
@@ -21,4 +21,4 @@ const LessonPage = async ({ params }: LessonPageProps) => {
   return <Game questions={questions} />;
 };
 
-export default LessonPage;
+export default PlayPage;
