@@ -10,27 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Question {
-  id            String    @id @default(uuid())
-  content       String
-  questionTitle String
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime? @updatedAt @map("updated_at")
-
-  answers Answer[]
-
-  @@map("questions")
-}
-
-model Answer {
+model Option {
   id         String    @id @default(uuid())
   content    String
+  isCorrect  Boolean
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime? @updatedAt @map("updated_at")
   questionId String    @map("question_id")
-  correct    Boolean   @default(false)
 
   question Question @relation(fields: [questionId], references: [id])
 
-  @@map("answers")
+  @@map("options")
+}
+
+model Question {
+  id        String    @id @default(uuid())
+  title     String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  options Option[]
+
+  @@map("questions")
 }
