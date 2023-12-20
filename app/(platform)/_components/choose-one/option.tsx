@@ -7,7 +7,7 @@ import { useState } from "react";
 interface OptionProps {
   label: string;
   isCorrect: boolean;
-  onChange: () => void;
+  onChange: (isCorrect: boolean) => void;
 }
 
 export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
@@ -16,7 +16,7 @@ export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
   const onClick = () => {
     setSelected(true);
 
-    !!onChange && onChange();
+    !!onChange && onChange(isCorrect);
   };
 
   const showCorrection = selected;

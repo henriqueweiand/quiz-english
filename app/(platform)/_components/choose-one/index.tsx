@@ -7,15 +7,16 @@ import { Title } from "../title";
 interface ChooseOneProps {
   title: string;
   options: OptionModel[];
-  // next: () => void;
+  next: () => void;
 }
 
-const ChooseOne = ({ title, options }: ChooseOneProps) => {
-  const onChange = () => {
-    setTimeout(() => {
-      console.log("dale");
-      // !!next && next();
-    }, 1000);
+const ChooseOne = ({ title, options, next }: ChooseOneProps) => {
+  const onChange = (isCorrect: boolean) => {
+    if (isCorrect) {
+      setTimeout(() => {
+        !!next && next();
+      }, 1000);
+    }
   };
 
   return (
