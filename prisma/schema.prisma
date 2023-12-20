@@ -29,7 +29,30 @@ model Question {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  options Option[]
+  options        Option[]
+  LessonQuestion LessonQuestion[]
 
   @@map("questions")
+}
+
+model Lesson {
+  id        String    @id @default(uuid())
+  title     String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  questions LessonQuestion[]
+
+  @@map("lessons")
+}
+
+model LessonQuestion {
+  id         String @id @default(uuid())
+  lessonId   String @map("lesson_id")
+  questionId String @map("question_id")
+
+  lesson   Lesson   @relation(fields: [lessonId], references: [id])
+  question Question @relation(fields: [questionId], references: [id])
+
+  @@map("lesson_questions")
 }

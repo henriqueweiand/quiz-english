@@ -1,6 +1,6 @@
 "use client";
 
-import { Option as OptionModel, Question } from "@prisma/client";
+import { Option as OptionModel } from "@prisma/client";
 import { Option } from "./option";
 import { Title } from "../title";
 
