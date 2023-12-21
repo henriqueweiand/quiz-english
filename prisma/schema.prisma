@@ -36,14 +36,16 @@ model Question {
 }
 
 model Lesson {
-  id        String    @id @default(uuid())
-  title     String
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
 
   questions LessonQuestion[]
+  tags      LessonTag[]
 
-  @@map("lessons")
+  @@map("lesson")
 }
 
 model LessonQuestion {
@@ -55,4 +57,26 @@ model LessonQuestion {
   question Question @relation(fields: [questionId], references: [id])
 
   @@map("lesson_questions")
+}
+
+model LessonTag {
+  id       String @id @default(uuid())
+  lessonId String @map("lesson_id")
+  tagId    String @map("tag_id")
+
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+  tag    Tag    @relation(fields: [tagId], references: [id])
+
+  @@map("lesson_tags")
+}
+
+model Tag {
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  lessons LessonTag[]
+
+  @@map("tag")
 }

@@ -3,14 +3,20 @@ import { redirect } from "next/navigation";
 
 import { Results, ResultsSkeleton } from "./_components/results";
 
-interface LessonsProps {
+interface SearchPageProps {
   searchParams: {
     term?: string;
   };
-}
+};
 
-const Lessons = ({ searchParams }: LessonsProps) => {
-  return (
+const SearchPage = ({
+  searchParams,
+}: SearchPageProps) => {
+  if (!searchParams.term) {
+    redirect("/");
+  }
+
+  return ( 
     <div className="h-full p-8 max-w-screen-2xl mx-auto">
       <Suspense fallback={<ResultsSkeleton />}>
         <Results term={searchParams.term} />
@@ -18,5 +24,5 @@ const Lessons = ({ searchParams }: LessonsProps) => {
     </div>
   );
 };
-
-export default Lessons;
+ 
+export default SearchPage;
