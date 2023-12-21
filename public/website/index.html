@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embeddable Iframe Script example</title>
+</head>
+<body>
+  <div id="iframe-container-1" style="height: 300px; margin: 30px auto; width: 50%;"></div>
+  <div id="iframe-container-2" style="height: 300px; margin: 0 auto; width: 50%;"></div>
+
+  <script defer src="iframe-loader.js"></script>
+
+  <script>
+    window.onload = function () {
+      loadIframe("iframe-container-1", "http://localhost:3000/lessons/936a4665-e338-447c-8c99-4ac8fc1cd633/play");
+      loadIframe("iframe-container-2", "http://localhost:3000/lessons/7105651c-800c-4ad7-8a94-d34570ec54e9/play");
+    };
+  </script>
+</body>
+</html>
