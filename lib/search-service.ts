@@ -1,38 +1,58 @@
 import { db } from "@/lib/db";
 
-export const getSearch = async (term?: string) => {
-  let streams = [];
+interface getSearchParams {
+  term?: string;
+  tags?: string[];
+}
+
+export const getSearch = async ({ term, tags }: getSearchParams) => {
+  let whereClause = {};
 
   if (term) {
-    streams = await db.lesson.findMany({
-      where: {
-        title: {
-          contains: term,
-        },
+    whereClause = {
+      ...whereClause,
+      title: {
+        contains: term,
       },
-      select: {
-        id: true,
-        title: true,
-      },
-      orderBy: [
-        {
-          createdAt: "desc",
-        },
-      ],
-    });
-  } else {
-    streams = await db.lesson.findMany({
-      select: {
-        id: true,
-        title: true,
-      },
-      orderBy: [
-        {
-          createdAt: "desc",
-        },
-      ],
-    });
+    };
   }
+
+  if (tags) {
+    let inCondition;
+    if (Array.isArray(tags)) {
+      inCondition = {
+        in: tags,
+      };
+    } else {
+      inCondition = {
+        contains: tags,
+      };
+    }
+
+    whereClause = {
+      ...whereClause,
+      tags: {
+        some: {
+          tag: {
+            name: inCondition,
+          },
+        },
+      },
+    };
+  }
+
+  const streams = await db.lesson.findMany({
+    select: {
+      id: true,
+      title: true,
+    },
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+    ],
+    where: whereClause,
+  });
 
   return streams;
 };

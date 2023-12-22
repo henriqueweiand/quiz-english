@@ -11,7 +11,7 @@ interface LessonsProps {
 
 export const Lessons = async ({ search }: LessonsProps) => {
   const { term } = search;
-  const data = await getSearch(term);
+  const data = await getSearch(search);
 
   return (
     <div className="h-full w-full">
