@@ -1,7 +1,7 @@
 "use client";
 
 import { Tag as TagModel } from "@prisma/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Tag } from "./tag";
 
 interface TagsProps {
@@ -10,10 +10,9 @@ interface TagsProps {
 }
 
 export const Tags = ({ terms, data }: TagsProps) => {
-  const router = useRouter();
   const searchParams = useSearchParams()!;
 
-  const handleTagClick = (tagName: string) => {
+  const generateTagsURL = (tagName: string) => {
     const params = new URLSearchParams(searchParams);
 
     if (terms && terms.includes(tagName)) {
@@ -22,7 +21,7 @@ export const Tags = ({ terms, data }: TagsProps) => {
       params.append("tags", tagName);
     }
 
-    router.push(`/?${params.toString()}`);
+    return `/?${params.toString()}`;
   };
 
   return (
@@ -33,7 +32,7 @@ export const Tags = ({ terms, data }: TagsProps) => {
             key={tag.id}
             name={tag.name}
             active={!!terms?.includes(tag.name)}
-            onClick={() => handleTagClick(tag.name)}
+            href={generateTagsURL(tag.name)}
           />
         ))}
     </>
