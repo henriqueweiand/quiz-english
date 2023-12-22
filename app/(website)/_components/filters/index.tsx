@@ -13,10 +13,13 @@ export const Filters = async ({ search }: FiltersProps) => {
   const tags = await getTags();
 
   return (
-    <div className="w-full">
-      <h3>Filters</h3>
+    <div className="flex flex-col gap-2">
+      <h3 className="text-2md font-bold">Filters</h3>
       <Search term={search?.term} />
-      <Tags data={tags} terms={search?.tags} />
+
+      <div className="flex gap-2">
+        <Tags data={tags} terms={search?.tags} />
+      </div>
     </div>
   );
 };

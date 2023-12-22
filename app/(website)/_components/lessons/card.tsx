@@ -27,7 +27,7 @@ interface CardProps {
 export const Card = ({ data }: CardProps) => {
   return (
     <Link href={`/lessons/${data.id}`}>
-      <CardComponent>
+      <CardComponent className="hover:shadow-md hover:shadow-black-100">
         <CardHeader>
           <CardTitle>{data.title}</CardTitle>
           {data.questions && (
