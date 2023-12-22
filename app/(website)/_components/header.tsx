@@ -1,4 +1,5 @@
 import GamePage from "@/app/(website)/_components/game";
+import { Suspense } from "react";
 
 export const Header = () => (
   <header className="bg-[#57c2eb] min-h-[50vh] flex flex-col items-center justify-center">
@@ -13,7 +14,9 @@ export const Header = () => (
       </div>
 
       <section className="bg-white p-8 rounded-lg shadow-lg w-full">
-        <GamePage />
+        <Suspense fallback={<>Loading questions</>}>
+          <GamePage />
+        </Suspense>
       </section>
     </div>
   </header>

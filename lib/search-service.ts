@@ -42,9 +42,17 @@ export const getSearch = async ({ term, tags }: getSearchParams) => {
   }
 
   const streams = await db.lesson.findMany({
-    select: {
-      id: true,
-      title: true,
+    include: {
+      questions: {
+        include: {
+          question: true,
+        },
+      },
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
     },
     orderBy: [
       {

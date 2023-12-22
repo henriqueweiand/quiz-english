@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSearch } from "@/lib/search-service";
-import { ResultCard, ResultCardSkeleton } from "./result-card";
+import { Card, CardSkeleton } from "./card";
 
 interface LessonsProps {
   search: {
@@ -29,7 +29,7 @@ export const Lessons = async ({ search }: LessonsProps) => {
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-4">
           {data.map((result) => (
-            <ResultCard data={result} key={result.id} />
+            <Card data={result} key={result.id} />
           ))}
         </div>
       </div>
@@ -37,13 +37,13 @@ export const Lessons = async ({ search }: LessonsProps) => {
   );
 };
 
-export const ResultsSkeleton = () => {
+export const LessonsSkeleton = () => {
   return (
     <div>
       <Skeleton className="h-8 w-[290px] mb-4" />
       <div className="flex flex-col gap-y-4">
         {[...Array(2)].map((_, i) => (
-          <ResultCardSkeleton key={i} />
+          <CardSkeleton key={i} />
         ))}
       </div>
     </div>
