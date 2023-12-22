@@ -1,16 +1,51 @@
-import { Suspense } from "react";
-import { ResultsSkeleton, Results } from "./results";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getSearch } from "@/lib/search-service";
+import { ResultCard, ResultCardSkeleton } from "./result-card";
 
 interface LessonsProps {
-  search?: string;
+  search: {
+    term?: string;
+    tags?: string[];
+  };
 }
 
-export const Lessons = ({ search }: LessonsProps) => {
+export const Lessons = async ({ search }: LessonsProps) => {
+  const { term } = search;
+  const data = await getSearch(term);
+
   return (
     <div className="h-full w-full">
-      <Suspense fallback={<ResultsSkeleton />}>
-        <Results term={search} />
-      </Suspense>
+      <div>
+        {term && (
+          <h2 className="text-lg font-semibold mb-4">
+            Results for term &quot;{term}&quot;
+          </h2>
+        )}
+
+        {data.length === 0 && (
+          <p className="text-muted-foreground text-sm">
+            No results found. Try searching for something else
+          </p>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-4">
+          {data.map((result) => (
+            <ResultCard data={result} key={result.id} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const ResultsSkeleton = () => {
+  return (
+    <div>
+      <Skeleton className="h-8 w-[290px] mb-4" />
+      <div className="flex flex-col gap-y-4">
+        {[...Array(2)].map((_, i) => (
+          <ResultCardSkeleton key={i} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import { Tags } from "./tags";
-import { Search } from "./search";
 import { getTags } from "@/lib/get-tags";
+import { Search } from "./search";
+import { Tags } from "./tags";
 
 interface FiltersProps {
   search?: {
