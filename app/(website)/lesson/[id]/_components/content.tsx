@@ -1,14 +1,7 @@
-interface ContentProps {}
+interface ContentProps {
+  description?: string | null;
+}
 
-export const Content = ({}: ContentProps) => {
-  return (
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit
-      amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua.
-    </div>
-  );
+export const Content = ({ description }: ContentProps) => {
+  return <div dangerouslySetInnerHTML={{ __html: description || "" }}></div>;
 };

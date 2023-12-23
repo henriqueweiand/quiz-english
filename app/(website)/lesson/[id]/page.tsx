@@ -3,6 +3,7 @@ import { Content } from "./_components/content";
 import { Embed } from "./_components/embed";
 import { Options } from "./_components/options";
 import { Play } from "./_components/play";
+import { getLesson } from "@/lib/get-lesson";
 
 type Tab = "embed" | "play";
 
@@ -13,15 +14,20 @@ interface LessonPageProps {
   };
 }
 
-const LessonPage = ({ params, searchParams }: LessonPageProps) => {
+const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
+  const lesson = await getLesson(params.id);
   const tabOpen = searchParams?.tab as Tab;
   const isTabOpen = !!tabOpen;
 
+  if (!lesson) {
+    throw new Error("Lesson not found");
+  }
+
   return (
-    <main className="w-full h-full p-4 bg-[#57c2eb]">
+    <main className="w-full min-h-screen p-4 bg-[#57c2eb] overflow-hidden">
       <div className="bg-white md:w-4/5 lg:w-3/5 mx-auto border rounded-3xl p-8 shadow-lg">
         <div className="flex flex-col md:flex-row justify-between mb-4">
-          <h1 className="text-4xl font-bold">Preposition of time</h1>
+          <h1 className="text-4xl font-bold">{lesson.title}</h1>
           <div className="flex gap-2 mt-4 md:mt-0">
             <Options params={params} />
           </div>
@@ -33,7 +39,7 @@ const LessonPage = ({ params, searchParams }: LessonPageProps) => {
           </Suspense>
         ) : (
           <div className="text-lg leading-relaxed text-gray-700">
-            <Content />
+            <Content description={lesson.description} />
           </div>
         )}
       </div>
