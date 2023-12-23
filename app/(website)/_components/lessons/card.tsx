@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Badge } from "@/components/ui/badge";
 import {
   Card as CardComponent,
   CardContent,
@@ -8,14 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Lesson,
-  LessonQuestion,
-  LessonTag,
-  Question,
-  Tag,
-} from "@prisma/client";
-import { Badge } from "@/components/ui/badge";
+import { Lesson, LessonQuestion, LessonTag, Tag } from "@prisma/client";
 
 interface CardProps {
   data: Lesson & {
@@ -26,7 +20,7 @@ interface CardProps {
 
 export const Card = ({ data }: CardProps) => {
   return (
-    <Link href={`/lessons/${data.id}`}>
+    <Link href={`/lesson/${data.id}`}>
       <CardComponent className="hover:shadow-md hover:shadow-black-100">
         <CardHeader>
           <CardTitle>{data.title}</CardTitle>
