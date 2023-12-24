@@ -1,7 +1,14 @@
-import GamePage from "@/app/(website)/_components/game";
+import { Game } from "@/app/(platform)/_components/game";
+import { Question, Option } from "@prisma/client";
 
-interface PlayProps {}
+interface QuestionWithOptions extends Question {
+  options: Option[];
+}
 
-export const Play = ({}: PlayProps) => {
-  return <GamePage />;
+interface PlayProps {
+  questions: QuestionWithOptions[];
+}
+
+export const Play = ({ questions }: PlayProps) => {
+  return <Game questions={questions} />;;
 };
