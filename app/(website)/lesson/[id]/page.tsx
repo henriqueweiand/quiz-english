@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { Content } from "./_components/content";
-import { Embed } from "./_components/embed";
 import { Options } from "./_components/options";
 import { Play } from "./_components/play";
 import { getLesson } from "@/lib/get-lesson";
+import { Embed } from "./_components/embed";
 
 type Tab = "embed" | "play";
 
@@ -35,7 +35,7 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
 
         {isTabOpen ? (
           <Suspense fallback={<>Loading</>}>
-            {tabOpen == "embed" ? <Embed /> : <Play />}
+            {tabOpen == "embed" ? <Embed lessonId={params.id} /> : <Play />}
           </Suspense>
         ) : (
           <div className="text-lg leading-relaxed text-gray-700">
