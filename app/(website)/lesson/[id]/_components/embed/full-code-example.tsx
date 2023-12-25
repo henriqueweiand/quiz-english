@@ -24,7 +24,7 @@ export const FullCodeExample: React.FC<FullCodeExampleProps> = ({ lessonId }) =>
   <div id="iframe-container-1" style="height: 300px; margin: 30px auto; width: 50%;"></div>
   <div id="iframe-container-2" style="height: 300px; margin: 0 auto; width: 50%;"></div>
 
-  <script defer src="https://read-smart-beta.vercel.app/iframe-loader.js"></script>
+  <script defer src="https://read-smart-beta.vercel.app/iframe-loader.min.js"></script>
 
   <script>
     window.onload = function () {

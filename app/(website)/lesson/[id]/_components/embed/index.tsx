@@ -23,7 +23,7 @@ export const Embed: React.FC<EmbedProps> = ({ lessonId }) => {
       </p>
       <pre className="bg-gray-100 p-4 rounded-lg mt-4 overflow-auto">
         <code className="language-html">
-{`<script defer src="https://read-smart-beta.vercel.app/iframe-loader.js"></script>`}
+{`<script defer src="https://read-smart-beta.vercel.app/iframe-loader.min.js"></script>`}
         </code>
       </pre>
 
