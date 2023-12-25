@@ -7,6 +7,7 @@ import { Embed } from "./_components/embed";
 import { extractQuestions } from "@/lib/lesson-service";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 type Tab = "embed" | "play";
 
@@ -37,6 +38,18 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
             <h1 className="text-4xl font-bold">
               {lesson.title}
             </h1>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {
+                lesson.tags.length && (
+                  <>
+                    {
+                      lesson.tags.map(tag => <Badge variant={'outline'} key={tag.id}>{tag.tag.name}</Badge>)
+                    }
+                  </>
+                )
+              }
+              <Badge variant={'outline'}>{lesson.questions.length} Questions</Badge>
+            </div>
           </div>
           <div className="flex gap-2 mt-4 md:mt-0">
             <Options params={params} />

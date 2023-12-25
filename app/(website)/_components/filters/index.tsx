@@ -17,7 +17,7 @@ export const Filters = async ({ search }: FiltersProps) => {
       <h3 className="text-2md font-bold">Filters</h3>
       <Search term={search?.term} />
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         <Tags data={tags} terms={search?.tags} />
       </div>
     </div>

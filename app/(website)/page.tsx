@@ -15,7 +15,7 @@ const WebSitePage = ({ searchParams }: WebSitePageProps) => {
     <>
       <Header />
       <main className="mx-auto md:w-4/5 flex flex-col lg:flex-row gap-4 p-4">
-        <aside className="min:w-1/3">
+        <aside className="md:w-full lg:w-1/3">
           <Suspense fallback={<>Loading tags</>}>
             <Filters search={searchParams} />
           </Suspense>
