@@ -155,8 +155,8 @@ export const generateLesson = async () => {
   const tags = await Promise.all(tagPromises);
 
   // Create Source
-  const sources = lessonData.sources.map(async (source) => {
-    await db.source.create({
+  const sourcePromises = lessonData.sources.map(async (source) => {
+    return await db.source.create({
       data: {
         lessonId: lesson.id,
         type: source.type,
@@ -164,6 +164,8 @@ export const generateLesson = async () => {
       },
     });
   });
+
+  const sources = await Promise.all(sourcePromises);
 
   return { lesson, questions, tags, sources };
 };

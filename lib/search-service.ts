@@ -19,6 +19,42 @@ export const getSearch = async ({ term, tags, levels, sources }: getSearchParams
     };
   }
 
+  if (levels) {
+    let inCondition = null;
+    if (Array.isArray(levels)) {
+      inCondition = {
+        in: levels,
+      };
+    } else {
+      inCondition = levels;
+    }
+
+    whereClause = {
+      ...whereClause,
+      difficultyLevel: inCondition
+    };
+  }
+
+  if (sources) {
+    let inCondition = null;
+    if (Array.isArray(sources)) {
+      inCondition = {
+        in: sources,
+      };
+    } else {
+      inCondition = sources;
+    }
+
+    whereClause = {
+      ...whereClause,
+      Source: {
+        some: {
+          type: inCondition
+        },
+      },
+    };
+  }
+
   if (tags) {
     let inCondition = null;
     if (Array.isArray(tags)) {
