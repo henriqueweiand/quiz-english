@@ -1,6 +1,25 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+enum DifficultyLevel {
+  A0
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+enum SourceTypes {
+  Podcast
+  News
+  Article
+  Video
+  SocialNetwork
+  Website
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -24,21 +43,38 @@ model Option {
 }
 
 model Question {
-  id        String    @id @default(uuid())
-  title     String
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
+  id              String          @id @default(uuid())
+  title           String
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime?       @updatedAt @map("updated_at")
+  difficultyLevel DifficultyLevel
 
   options        Option[]
   LessonQuestion LessonQuestion[]
+  Source         Source[]
 
   @@map("questions")
+}
+
+model Source {
+  id        String      @id @default(uuid())
+  type      SourceTypes
+  url       String?
+  title     String?
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime?   @updatedAt @map("updated_at")
+
+  questionId String   @map("question_id")
+  question   Question @relation(fields: [questionId], references: [id])
+
+  @@map("Source")
 }
 
 model Lesson {
   id          String    @id @default(uuid())
   title       String
   description String?
+  explanation String?
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 

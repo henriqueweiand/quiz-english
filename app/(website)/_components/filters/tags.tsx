@@ -2,7 +2,7 @@
 
 import { Tag as TagModel } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
-import { Tag } from "./tag";
+import { BadgeWithLink } from "./badge-with-link";
 
 interface TagsProps {
   terms?: string[];
@@ -28,7 +28,7 @@ export const Tags = ({ terms, data }: TagsProps) => {
     <>
       {data.length &&
         data.map((tag) => (
-          <Tag
+          <BadgeWithLink
             key={tag.id}
             name={tag.name}
             active={!!terms?.includes(tag.name)}
