@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { BadgeWithLink } from "./badge-with-link";
+import { BadgeWithLink } from "../badge-with-link";
 
 interface SourcesProps {
   sources?: string[];

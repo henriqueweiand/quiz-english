@@ -80,7 +80,7 @@ model Lesson {
   difficultyLevel DifficultyLevel
 
   options Option[]
-  Source  Source[]
+  source  Source[]
 
   questions LessonQuestion[]
   tags      LessonTag[]

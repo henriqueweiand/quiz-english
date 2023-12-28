@@ -8,6 +8,7 @@ import { extractQuestions } from "@/lib/lesson-service";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { BadgeWithLink } from "../../_components/badge-with-link";
 
 type Tab = "embed" | "play";
 
@@ -48,7 +49,17 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
                   </>
                 )
               }
+              {
+                lesson.source.length && (
+                  <>
+                    {
+                      lesson.source.map(source => <BadgeWithLink active={false} key={source.id} name={source.type} />)
+                    }
+                  </>
+                )
+              }
               <Badge variant={'outline'}>{lesson.questions.length} Questions</Badge>
+              <Badge variant={'outline'}>Level {lesson.difficultyLevel}</Badge>
             </div>
           </div>
           <div className="flex gap-2 mt-4 md:mt-0">

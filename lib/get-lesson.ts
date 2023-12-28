@@ -15,6 +15,7 @@ export const getLesson = async (id: string) => {
           },
         },
       },
+      source: true,
       tags: {
         include: {
           tag: true,

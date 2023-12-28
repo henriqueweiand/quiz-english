@@ -6,7 +6,7 @@ import Link from "next/link";
 interface BadgeWithLinkProps {
   name: string;
   active: boolean;
-  href:
+  href?:
   | {
     pathname: string;
     query?: { [index: string]: string };
@@ -16,8 +16,10 @@ interface BadgeWithLinkProps {
 
 export const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({ name, active, href }) => {
   return (
-    <Link href={href}>
-      <Badge variant={active ? "default" : "outline"}>{name}</Badge>
-    </Link>
-  );
+    !!href ? (
+      <Link href={href}>
+        <Badge variant={active ? "default" : "outline"}>{name}</Badge>
+      </Link>
+    ) : <Badge variant={active ? "default" : "outline"}>{name}</Badge>
+  )
 };
