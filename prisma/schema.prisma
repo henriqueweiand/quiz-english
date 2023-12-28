@@ -38,20 +38,20 @@ model Option {
   questionId String    @map("question_id")
 
   question Question @relation(fields: [questionId], references: [id])
+  Lesson   Lesson?  @relation(fields: [lessonId], references: [id])
+  lessonId String?
 
   @@map("options")
 }
 
 model Question {
-  id              String          @id @default(uuid())
-  title           String
-  createdAt       DateTime        @default(now()) @map("created_at")
-  updatedAt       DateTime?       @updatedAt @map("updated_at")
-  difficultyLevel DifficultyLevel
+  id        String    @id @default(uuid())
+  title     String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   options        Option[]
   LessonQuestion LessonQuestion[]
-  Source         Source[]
 
   @@map("questions")
 }
@@ -64,19 +64,23 @@ model Source {
   createdAt DateTime    @default(now()) @map("created_at")
   updatedAt DateTime?   @updatedAt @map("updated_at")
 
-  questionId String   @map("question_id")
-  question   Question @relation(fields: [questionId], references: [id])
+  lessonId String  @map("lesson_id")
+  Lesson   Lesson? @relation(fields: [lessonId], references: [id])
 
   @@map("Source")
 }
 
 model Lesson {
-  id          String    @id @default(uuid())
-  title       String
-  description String?
-  explanation String?
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime? @updatedAt @map("updated_at")
+  id              String          @id @default(uuid())
+  title           String
+  description     String?
+  explanation     String?
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime?       @updatedAt @map("updated_at")
+  difficultyLevel DifficultyLevel
+
+  options Option[]
+  Source  Source[]
 
   questions LessonQuestion[]
   tags      LessonTag[]

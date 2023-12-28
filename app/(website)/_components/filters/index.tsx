@@ -10,7 +10,7 @@ interface FiltersProps {
     term?: string;
     tags?: string[];
     sources?: string[];
-    level?: string;
+    levels?: string[];
   };
 }
 
@@ -36,7 +36,7 @@ export const Filters = async ({ search }: FiltersProps) => {
 
       <h3 className="text-2md font-bold">Level</h3>
       <div className="flex gap-2 flex-wrap">
-        <DifficultLevels data={difficultyLevels} level={search?.level} />
+        <DifficultLevels data={difficultyLevels} levels={search?.levels} />
       </div>
     </div>
   );

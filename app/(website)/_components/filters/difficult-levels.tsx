@@ -4,20 +4,20 @@ import { useSearchParams } from "next/navigation";
 import { BadgeWithLink } from "./badge-with-link";
 
 interface DifficultLevelsProps {
-  level?: string;
+  levels?: string[];
   data: string[];
 }
 
-export const DifficultLevels = ({ level, data }: DifficultLevelsProps) => {
+export const DifficultLevels = ({ levels, data }: DifficultLevelsProps) => {
   const searchParams = useSearchParams()!;
 
-  const generateLevelURL = (levelParam: string) => {
+  const generateLevelURL = (levelName: string) => {
     const params = new URLSearchParams(searchParams);
 
-    if (level) {
-      params.delete("level", levelParam);
+    if (levels && levels.includes(levelName)) {
+      params.delete("levels", levelName);
     } else {
-      params.append("level", levelParam);
+      params.append("levels", levelName);
     }
 
     return `/?${params.toString()}`;
@@ -30,7 +30,7 @@ export const DifficultLevels = ({ level, data }: DifficultLevelsProps) => {
           <BadgeWithLink
             key={key}
             name={levelMap}
-            active={level == levelMap}
+            active={!!levels?.includes(levelMap)}
             href={generateLevelURL(levelMap)}
           />
         ))}

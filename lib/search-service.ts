@@ -3,9 +3,11 @@ import { db } from "@/lib/db";
 interface getSearchParams {
   term?: string;
   tags?: string[];
+  levels?: string[];
+  sources?: string[];
 }
 
-export const getSearch = async ({ term, tags }: getSearchParams) => {
+export const getSearch = async ({ term, tags, levels, sources }: getSearchParams) => {
   let whereClause = {};
 
   if (term) {
@@ -18,7 +20,7 @@ export const getSearch = async ({ term, tags }: getSearchParams) => {
   }
 
   if (tags) {
-    let inCondition;
+    let inCondition = null;
     if (Array.isArray(tags)) {
       inCondition = {
         in: tags,

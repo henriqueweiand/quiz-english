@@ -7,6 +7,8 @@ interface WebSitePageProps {
   searchParams: {
     term?: string;
     tags?: string[];
+    sources?: string[];
+    levels?: string[];
   };
 }
 

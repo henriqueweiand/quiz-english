@@ -6,6 +6,8 @@ interface LessonsProps {
   search: {
     term?: string;
     tags?: string[];
+    levels?: string[];
+    sources?: string[];
   };
 }
 

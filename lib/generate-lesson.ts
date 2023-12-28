@@ -1,10 +1,17 @@
 import { db } from "@/lib/db";
+import { DifficultyLevel, SourceTypes } from "@prisma/client";
 
 const sampleData = {
   "Lesson": [
     {
       "title": "Exploring Present Perfect Tense",
       "description": "Dive into the usage of the present perfect tense in English grammar. Understand how to form and use present perfect tense through various examples and exercises.",
+      "sources": [
+        {
+          "type": SourceTypes.Video,
+          "url": "https://www.youtube.com/watch?v=hZVNbKSFrY0&ab_channel=Ecolinguist"
+        }
+      ],
       "questions": [
         {
           "title": "What is the correct present perfect tense form of the verb 'eat'?",
@@ -77,6 +84,7 @@ export const generateLesson = async () => {
     data: {
       title: lessonData.title,
       description: lessonData.description,
+      difficultyLevel: DifficultyLevel.A0,
     }
   });
 
@@ -146,5 +154,16 @@ export const generateLesson = async () => {
 
   const tags = await Promise.all(tagPromises);
 
-  return { lesson, questions, tags };
+  // Create Source
+  const sources = lessonData.sources.map(async (source) => {
+    await db.source.create({
+      data: {
+        lessonId: lesson.id,
+        type: source.type,
+        url: source.url,
+      },
+    });
+  });
+
+  return { lesson, questions, tags, sources };
 };
