@@ -96,7 +96,7 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
                 )
               }
               {
-                lesson.source.length && (
+                !!lesson.source.length && (
                   <>
                     {
                       lesson.source.map(source => <BadgeWithLink active={false} key={source.id} name={source.type} />)
