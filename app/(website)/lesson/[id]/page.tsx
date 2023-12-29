@@ -12,8 +12,9 @@ import { BadgeWithLink } from "../../_components/badge-with-link";
 import { Explanation } from "./_components/explanation";
 import { Source as SourceDomain } from "@prisma/client";
 import { Source } from "./_components/source";
+import { RelatedLessons } from "./_components/related-lessons";
 
-type Tab = "embed" | "play" | "explanation";
+type Tab = "embed" | "play" | "explanation" | "related";
 
 interface LessonPageProps {
   params: { id: string };
@@ -30,10 +31,10 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
   function renderTabContent(tabOpen: Tab, params: { id: string }, lesson: any) {
     const sourceElement = (
       <div className="mt-4">
-        <h3 className="font-bold">Sources</h3>
         {
-          lesson.source.length && (
+          !!lesson.source.length && (
             <>
+              <h3 className="font-bold">Sources</h3>
               {
                 lesson.source.map((source: SourceDomain) => <Source key={source.id} title={source?.title} url={source.url} type={source.type} />)
               }
@@ -44,6 +45,12 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
     );
 
     switch (tabOpen) {
+      case 'related':
+        return (
+          <>
+            <RelatedLessons lessonId={params.id} />
+          </>
+        );
       case 'embed':
         return (
           <>
@@ -56,7 +63,7 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
       case 'explanation':
         return (
           <>
-            <Explanation content={lesson.explanation} />;
+            <Explanation content={lesson.explanation} />
             {sourceElement}
           </>
         );

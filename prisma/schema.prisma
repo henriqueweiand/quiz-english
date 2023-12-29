@@ -67,7 +67,7 @@ model Source {
   lessonId String  @map("lesson_id")
   Lesson   Lesson? @relation(fields: [lessonId], references: [id])
 
-  @@map("Source")
+  @@map("source")
 }
 
 model Lesson {
@@ -82,10 +82,20 @@ model Lesson {
   options Option[]
   source  Source[]
 
-  questions LessonQuestion[]
-  tags      LessonTag[]
+  questions      LessonQuestion[]
+  tags           LessonTag[]
+  relatedLessons LessonRelation[]
 
   @@map("lesson")
+}
+
+model LessonRelation {
+  id              String @id @default(uuid())
+  lessonId        String @map("lesson_id")
+  relatedLessonId String @map("related_lesson_id")
+  lesson          Lesson @relation(fields: [lessonId], references: [id])
+
+  @@map("lesson_relation")
 }
 
 model LessonQuestion {

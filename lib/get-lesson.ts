@@ -6,6 +6,7 @@ export const getLesson = async (id: string) => {
       id,
     },
     include: {
+      relatedLessons: true,
       questions: {
         include: {
           question: {
