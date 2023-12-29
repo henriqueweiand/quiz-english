@@ -59,7 +59,7 @@ model Question {
 model Source {
   id        String      @id @default(uuid())
   type      SourceTypes
-  url       String?
+  url       String
   title     String?
   createdAt DateTime    @default(now()) @map("created_at")
   updatedAt DateTime?   @updatedAt @map("updated_at")

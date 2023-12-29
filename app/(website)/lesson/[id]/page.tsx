@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BadgeWithLink } from "../../_components/badge-with-link";
 import { Explanation } from "./_components/explanation";
-import { Lesson } from "@prisma/client";
+import { Source as SourceDomain } from "@prisma/client";
+import { Source } from "./_components/source";
 
 type Tab = "embed" | "play" | "explanation";
 
@@ -27,13 +28,38 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
   const isTabOpen = !!tabOpen;
 
   function renderTabContent(tabOpen: Tab, params: { id: string }, lesson: any) {
+    const sourceElement = (
+      <div className="mt-4">
+        <h3 className="font-bold">Sources</h3>
+        {
+          lesson.source.length && (
+            <>
+              {
+                lesson.source.map((source: SourceDomain) => <Source key={source.id} title={source?.title} url={source.url} type={source.type} />)
+              }
+            </>
+          )
+        }
+      </div>
+    );
+
     switch (tabOpen) {
       case 'embed':
-        return <Embed lessonId={params.id} />;
+        return (
+          <>
+            <Embed lessonId={params.id} />
+            {sourceElement}
+          </>
+        );
       case 'play':
         return <Play questions={extractQuestions(lesson)} />;
       case 'explanation':
-        return <Explanation content={lesson.explanation} />;
+        return (
+          <>
+            <Explanation content={lesson.explanation} />;
+            {sourceElement}
+          </>
+        );
     }
   }
 
@@ -44,7 +70,7 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
   return (
     <main className="w-full min-h-screen p-4 bg-[#57c2eb] overflow-hidden">
       <div className="bg-white md:w-4/5 lg:w-3/5 mx-auto border rounded-3xl p-8 shadow-lg">
-        <div className="flex flex-col md:flex-row justify-between mb-4">
+        <div className="flex flex-col md:flex-row justify-between mb-2">
           <div className="flex-col justify-center items-center gap-2">
             <Link href={'/'}>
               <Button variant={'link'} size={'sm'} className="ml-0 pl-0">Return to the list</Button>
