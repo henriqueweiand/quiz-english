@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { useSearchParams } from "next/navigation";
 
-type Tab = "embed" | "play";
+type Tab = "embed" | "play" | "explanation";
 
 interface OptionsProps {
   params: { id: string };
@@ -34,6 +34,14 @@ export const Options = ({ params }: OptionsProps) => {
 
   return (
     <>
+      <Link href={toogleLink("explanation")}>
+        <Button
+          size={"sm"}
+          variant={tabOpen == "explanation" ? "default" : "outline"}
+        >
+          Explanation
+        </Button>
+      </Link>
       <Link href={toogleLink("embed")}>
         <Button
           size={"sm"}

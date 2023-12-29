@@ -9,8 +9,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BadgeWithLink } from "../../_components/badge-with-link";
+import { Explanation } from "./_components/explanation";
+import { Lesson } from "@prisma/client";
 
-type Tab = "embed" | "play";
+type Tab = "embed" | "play" | "explanation";
 
 interface LessonPageProps {
   params: { id: string };
@@ -23,6 +25,17 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
   const lesson = await getLesson(params.id);
   const tabOpen = searchParams?.tab as Tab;
   const isTabOpen = !!tabOpen;
+
+  function renderTabContent(tabOpen: Tab, params: { id: string }, lesson: any) {
+    switch (tabOpen) {
+      case 'embed':
+        return <Embed lessonId={params.id} />;
+      case 'play':
+        return <Play questions={extractQuestions(lesson)} />;
+      case 'explanation':
+        return <Explanation content={lesson.explanation} />;
+    }
+  }
 
   if (!lesson) {
     throw new Error("Lesson not found");
@@ -69,7 +82,7 @@ const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
 
         {isTabOpen ? (
           <Suspense fallback={<>Loading</>}>
-            {tabOpen == "embed" ? <Embed lessonId={params.id} /> : <Play questions={extractQuestions(lesson)} />}
+            {renderTabContent(tabOpen, params, lesson)}
           </Suspense>
         ) : (
           <div className="text-lg leading-relaxed text-gray-700">
