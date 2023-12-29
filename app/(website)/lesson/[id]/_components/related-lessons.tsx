@@ -11,7 +11,7 @@ export const RelatedLessons = async ({ lessonId }: RelatedLessonsProps) => {
     return (
         <>
             {
-                relatedLessons.length && relatedLessons.map(relatedLesson => <Card data={relatedLesson} />)
+                relatedLessons.length && relatedLessons.map(relatedLesson => <Card key={relatedLesson.id} data={relatedLesson} />)
             }
         </>
     );
