@@ -1,9 +1,5 @@
-import { getTags } from "@/lib/get-tags";
-import { Search } from "./search";
-import { Tags } from "./tags";
-import { DifficultLevels } from "./difficult-levels";
-import { DifficultyLevel, SourceTypes } from "@prisma/client";
-import { Sources } from "./sources";
+import { FiltersOptions } from "./filters-options";
+import { MobileFilters } from "./mobile-filters";
 
 interface FiltersProps {
   search?: {
@@ -14,30 +10,18 @@ interface FiltersProps {
   };
 }
 
-export const Filters = async ({ search }: FiltersProps) => {
-  const tags = await getTags();
-
-  const difficultyLevels: string[] = Object.values(DifficultyLevel);
-  const sourceTypes: string[] = Object.values(SourceTypes);
-
+export const Filters = ({ search }: FiltersProps) => {
   return (
-    <div className="flex flex-col gap-2">
-      <h3 className="text-2md font-bold">Filters</h3>
-      <Search term={search?.term} />
+    <aside>
+      <h2 className="sr-only">Filters</h2>
 
-      <div className="flex gap-2 flex-wrap">
-        <Tags data={tags} terms={search?.tags} />
-      </div>
+      <MobileFilters>
+        <FiltersOptions search={search} />
+      </MobileFilters>
 
-      <h3 className="text-2md font-bold">Source</h3>
-      <div className="flex gap-2 flex-wrap">
-        <Sources data={sourceTypes} sources={search?.sources} />
+      <div className="hidden lg:block">
+        <FiltersOptions search={search} />
       </div>
-
-      <h3 className="text-2md font-bold">Level</h3>
-      <div className="flex gap-2 flex-wrap">
-        <DifficultLevels data={difficultyLevels} levels={search?.levels} />
-      </div>
-    </div>
+    </aside>
   );
 };

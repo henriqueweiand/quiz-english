@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSearch } from "@/lib/search-service";
-import { Card, CardSkeleton } from "./card";
+import { CardSkeleton, Card } from "./card";
 
 interface LessonsProps {
   search: {
@@ -12,30 +12,23 @@ interface LessonsProps {
 }
 
 export const Lessons = async ({ search }: LessonsProps) => {
-  const { term } = search;
+  // const { term } = search;
   const data = await getSearch(search);
 
-  return (
-    <div className="h-full w-full">
-      <div>
-        {term && (
-          <h2 className="text-lg font-semibold mb-4">
-            Results for term &quot;{term}&quot;
-          </h2>
-        )}
+  if (data.length === 0) {
+    return (
+      <p className="text-muted-foreground text-sm">
+        No results found. Try searching for something else
+      </p>
+    );
+  }
 
-        {data.length === 0 && (
-          <p className="text-muted-foreground text-sm">
-            No results found. Try searching for something else
-          </p>
-        )}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-4">
-          {data.map((result) => (
-            <Card data={result} key={result.id} />
-          ))}
-        </div>
-      </div>
-    </div>
+  return (
+    <>
+      {data.map((result) => (
+        <Card data={result} key={result.id} />
+      ))}
+    </>
   );
 };
 

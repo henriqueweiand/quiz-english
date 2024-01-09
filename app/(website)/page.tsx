@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Filters } from "./_components/filters";
 import { Lessons } from "./_components/lessons";
-import { Header } from "./_components/header";
 
 interface WebSitePageProps {
   searchParams: {
@@ -14,21 +13,32 @@ interface WebSitePageProps {
 
 const WebSitePage = ({ searchParams }: WebSitePageProps) => {
   return (
-    <>
-      <Header />
-      <main className="mx-auto md:w-4/5 flex flex-col lg:flex-row gap-4 p-4">
-        <aside className="md:w-full lg:w-1/3">
-          <Suspense fallback={<>Loading tags</>}>
-            <Filters search={searchParams} />
-          </Suspense>
-        </aside>
-        <section className="flex-1">
-          <Suspense fallback={<>Loading lessons</>}>
-            <Lessons search={searchParams} />
-          </Suspense>
-        </section>
-      </main>
-    </>
+    <div>
+      <div>
+        <main className="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
+          <div className="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+            <Suspense fallback={<>Loading tags</>}>
+              <Filters search={searchParams} />
+            </Suspense>
+
+            <section
+              aria-labelledby="product-heading"
+              className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3"
+            >
+              <h2 id="product-heading" className="sr-only">
+                Products
+              </h2>
+
+              <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
+                <Suspense fallback={<>Loading lessons</>}>
+                  <Lessons search={searchParams} />
+                </Suspense>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
   );
 };
 
