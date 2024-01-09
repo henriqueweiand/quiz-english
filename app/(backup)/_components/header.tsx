@@ -1,4 +1,4 @@
-import GamePage from "@/app/(website)/_components/game";
+import GamePage from "@/app/(backup)/_components/game";
 import { Suspense } from "react";
 
 export const Header = () => (
