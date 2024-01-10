@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { Filters } from "./_components/filters";
 import { Lessons } from "./_components/lessons";
-import { Hero } from "./_components/hero";
-import { Header } from "./_components/header";
+import { Hero } from "./_components/Hero";
+import { Header } from "./_components/Header";
 
 interface WebSitePageProps {
   searchParams: {
