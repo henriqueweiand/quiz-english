@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Filters } from "./_components/filters";
 import { Lessons } from "./_components/lessons";
 import { Hero } from "./_components/hero";
-import { Header } from "./_components/Header";
+import { Header } from "./_components/header";
 
 interface WebSitePageProps {
   searchParams: {
