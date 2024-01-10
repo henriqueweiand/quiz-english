@@ -1,4 +1,4 @@
-import { Container } from "./container";
+import { Container } from "@/app/(website)/_components/container";
 
 export function Hero() {
   return (
