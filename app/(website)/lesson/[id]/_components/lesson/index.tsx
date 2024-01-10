@@ -62,6 +62,7 @@ export const Lesson = async ({ params }: LessonPageProps) => {
                   <div className="text-gray-500 h">Lesson material</div>
                   {lesson.source.map((source) => (
                     <BadgeWithLink
+                      target="_blank"
                       href={source.url}
                       active={false}
                       key={source.id}

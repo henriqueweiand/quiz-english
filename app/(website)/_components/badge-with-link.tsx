@@ -6,6 +6,7 @@ import Link from "next/link";
 interface BadgeWithLinkProps {
   name: string;
   active: boolean;
+  target?: "_blank" | "_self" | "_parent" | "_top";
   href?:
     | {
         pathname: string;
@@ -18,9 +19,10 @@ export const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({
   name,
   active,
   href,
+  target = "_self",
 }) => {
   return !!href ? (
-    <Link href={href} target="_blank">
+    <Link href={href} target={target}>
       <Badge variant={active ? "default" : "outline"}>{name}</Badge>
     </Link>
   ) : (

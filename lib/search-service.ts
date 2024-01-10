@@ -7,7 +7,12 @@ interface getSearchParams {
   sources?: string[];
 }
 
-export const getSearch = async ({ term, tags, levels, sources }: getSearchParams) => {
+export const getSearch = async ({
+  term,
+  tags,
+  levels,
+  sources,
+}: getSearchParams) => {
   let whereClause = {};
 
   if (term) {
@@ -31,7 +36,7 @@ export const getSearch = async ({ term, tags, levels, sources }: getSearchParams
 
     whereClause = {
       ...whereClause,
-      difficultyLevel: inCondition
+      difficultyLevel: inCondition,
     };
   }
 
@@ -47,9 +52,9 @@ export const getSearch = async ({ term, tags, levels, sources }: getSearchParams
 
     whereClause = {
       ...whereClause,
-      Source: {
+      source: {
         some: {
-          type: inCondition
+          type: inCondition,
         },
       },
     };
@@ -91,6 +96,7 @@ export const getSearch = async ({ term, tags, levels, sources }: getSearchParams
           tag: true,
         },
       },
+      source: true,
     },
     orderBy: [
       {
