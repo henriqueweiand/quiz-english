@@ -38,7 +38,6 @@ model Option {
   questionId String    @map("question_id")
 
   question Question @relation(fields: [questionId], references: [id])
-  Lesson   Lesson?  @relation(fields: [lessonId], references: [id])
   lessonId String?
 
   @@map("options")
@@ -79,8 +78,7 @@ model Lesson {
   updatedAt       DateTime?       @updatedAt @map("updated_at")
   difficultyLevel DifficultyLevel
 
-  options Option[]
-  source  Source[]
+  source Source[]
 
   questions      LessonQuestion[]
   tags           LessonTag[]
