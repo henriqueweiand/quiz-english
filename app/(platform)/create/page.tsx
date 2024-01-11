@@ -116,6 +116,25 @@ const CreatePage = ({}: CreatePageProps) => {
 
   function onSubmit(data: ProfileFormValues) {
     console.log(data);
+
+    let url = "http://localhost:3000/api/create"; // replace with your API endpoint
+
+    let options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(data),
+    };
+
+    fetch(url, options)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
