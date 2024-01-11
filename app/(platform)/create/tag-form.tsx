@@ -77,7 +77,7 @@ export function TagForm({ form, tags }: TagFormProps) {
                               ? field.onChange([...field.value, item.id])
                               : field.onChange(
                                   field.value?.filter(
-                                    (value) => value !== item.id
+                                    (value: string) => value !== item.id
                                   )
                                 );
                           }}
