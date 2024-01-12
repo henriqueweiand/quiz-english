@@ -8,11 +8,11 @@ import { Form, FormDescription, FormLabel } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
 import { Lesson, Tag } from "@prisma/client";
-import { LessonForm } from "./lesson-form";
-import { QuestionForm } from "./question-form";
-import { RelatedLessonsForm } from "./related-lesson-form";
-import { SourceForm } from "./source-form";
-import { TagForm } from "./tag-form";
+import { LessonForm } from "./_components/lesson-form";
+import { QuestionForm } from "./_components/question-form";
+import { RelatedLessonsForm } from "./_components/related-lesson-form";
+import { SourceForm } from "./_components/source-form";
+import { TagForm } from "./_components/tag-form";
 
 const profileFormSchema = z.object({
   title: z
@@ -91,9 +91,16 @@ const defaultValues: Partial<ProfileFormValues> = {
 interface CreateClientPageProps {
   tags?: Tag[];
   lessons?: Lesson[];
+  sourceTypes: string[];
+  difficultyLevels: string[];
 }
 
-export const CreateClientPage = ({ tags, lessons }: CreateClientPageProps) => {
+export const CreateClientPage = ({
+  tags,
+  lessons,
+  sourceTypes,
+  difficultyLevels,
+}: CreateClientPageProps) => {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -134,7 +141,7 @@ export const CreateClientPage = ({ tags, lessons }: CreateClientPageProps) => {
                 Main informations about the lesson
               </FormDescription>
             </div>
-            <LessonForm form={form} />
+            <LessonForm form={form} difficultyLevels={difficultyLevels} />
           </div>
 
           <div>
@@ -144,7 +151,7 @@ export const CreateClientPage = ({ tags, lessons }: CreateClientPageProps) => {
                 Inform the materials of the lesson
               </FormDescription>
             </div>
-            <SourceForm form={form} />
+            <SourceForm form={form} sourceTypes={sourceTypes} />
           </div>
 
           <div>

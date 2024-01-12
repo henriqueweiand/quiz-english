@@ -18,19 +18,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useFieldArray } from "react-hook-form";
-import TinyMce from "../_components/tinymce";
+import TinyMce from "../../_components/tinymce";
 
 interface LessonFormProps {
   form: any;
+  difficultyLevels: string[];
 }
 
-export function LessonForm({ form }: LessonFormProps) {
-  const { fields, append } = useFieldArray({
-    name: "source",
-    control: form.control,
-  });
-
+export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
   return (
     <>
       <FormField
@@ -101,13 +96,11 @@ export function LessonForm({ form }: LessonFormProps) {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="A0">A0</SelectItem>
-                <SelectItem value="A1">A1</SelectItem>
-                <SelectItem value="A2">A2</SelectItem>
-                <SelectItem value="B1">B1</SelectItem>
-                <SelectItem value="B2">B2</SelectItem>
-                <SelectItem value="C1">C1</SelectItem>
-                <SelectItem value="C2">C2</SelectItem>
+                {difficultyLevels.map((difficultyLevel) => (
+                  <SelectItem key={difficultyLevel} value={difficultyLevel}>
+                    {difficultyLevel}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <FormMessage />

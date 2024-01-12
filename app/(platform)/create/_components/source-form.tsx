@@ -22,9 +22,10 @@ import { useFieldArray } from "react-hook-form";
 
 interface SourceFormProps {
   form: any;
+  sourceTypes: string[];
 }
 
-export function SourceForm({ form }: SourceFormProps) {
+export function SourceForm({ form, sourceTypes }: SourceFormProps) {
   const { fields, append } = useFieldArray({
     name: "source",
     control: form.control,
@@ -63,14 +64,11 @@ export function SourceForm({ form }: SourceFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Podcast">Podcast</SelectItem>
-                    <SelectItem value="News">News</SelectItem>
-                    <SelectItem value="Article">Article</SelectItem>
-                    <SelectItem value="Video">Video</SelectItem>
-                    <SelectItem value="SocialNetwork">
-                      Social Network
-                    </SelectItem>
-                    <SelectItem value="Website">Website</SelectItem>
+                    {sourceTypes.map((sourceType) => (
+                      <SelectItem key={sourceType} value={sourceType}>
+                        {sourceType}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
