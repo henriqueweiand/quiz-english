@@ -9,39 +9,35 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-
-interface Item {
-  id: string;
-  label: string;
-}
+import { Tag } from "@prisma/client";
 
 interface TagFormProps {
   form: any;
-  tags: Item[] | any;
+  tags?: Partial<Tag>[];
 }
 
-export function TagForm({ form, tags }: TagFormProps) {
+export function TagForm({ form, tags: tagsInput = [] }: TagFormProps) {
+  const [tags, setTag] = useState(tagsInput);
   const [newTag, setNewTag] = useState("");
 
   const submitNewTag = () => {
-    if (newTag)
-      tags.push({
-        id: newTag,
-        label: newTag,
-      });
+    if (newTag) {
+      setTag([
+        ...tags,
+        {
+          id: newTag,
+          name: newTag,
+        },
+      ]);
+    }
   };
 
   return (
     <>
-      <div className="mb-4">
-        <FormLabel className="text-base">Tags</FormLabel>
-        <FormDescription>Select tags or create a new one</FormDescription>
-      </div>
-
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Input
           type="text"
@@ -58,12 +54,14 @@ export function TagForm({ form, tags }: TagFormProps) {
         name="tags"
         render={() => (
           <FormItem>
-            {tags.map((item: Item) => (
+            {tags.map((item) => (
               <FormField
                 key={item.id}
                 control={form.control}
                 name="tags"
                 render={({ field }) => {
+                  const fieldValue = field.value || []; // Provide a default empty array if field.value is undefined
+
                   return (
                     <FormItem
                       key={item.id}
@@ -71,21 +69,19 @@ export function TagForm({ form, tags }: TagFormProps) {
                     >
                       <FormControl>
                         <Checkbox
-                          checked={field.value?.includes(item.id)}
+                          checked={fieldValue.includes(item.name)}
                           onCheckedChange={(checked) => {
                             return checked
-                              ? field.onChange([...field.value, item.id])
+                              ? field.onChange([...fieldValue, item.name])
                               : field.onChange(
-                                  field.value?.filter(
-                                    (value: string) => value !== item.id
+                                  fieldValue.filter(
+                                    (value: string) => value !== item.name
                                   )
                                 );
                           }}
                         />
                       </FormControl>
-                      <FormLabel className="font-normal">
-                        {item.label}
-                      </FormLabel>
+                      <FormLabel className="font-normal">{item.name}</FormLabel>
                     </FormItem>
                   );
                 }}

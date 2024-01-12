@@ -40,6 +40,11 @@ const profileFormSchema = z.object({
   tags: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
   }),
+  relatedLessons: z
+    .array(z.string())
+    .refine((value) => value.some((item) => item), {
+      message: "You have to select at least one item.",
+    }),
 });
 
 type POSTData = z.infer<typeof profileFormSchema>;
@@ -50,6 +55,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   let sources;
   let tags;
   let questions;
+  let relatedLessons;
 
   if (!payload) return Response.json(false);
 
@@ -95,6 +101,21 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
 
     questions = await Promise.all(questionPromises);
+  }
+
+  // Related lessons
+  if (payload.relatedLessons) {
+    const relatedLessonPromises = payload.relatedLessons.map(
+      async (relatedLesson) => {
+        return await db.lessonRelation.create({
+          data: {
+            lessonId: relatedLesson,
+            relatedLessonId: lesson.id,
+          },
+        });
+      }
+    );
+    relatedLessons = await Promise.all(relatedLessonPromises);
   }
 
   // Create Source
@@ -153,5 +174,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     sources,
     tags,
     questions,
+    relatedLessons,
   });
 }

@@ -2,6 +2,7 @@
 
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -21,9 +22,10 @@ import { useFieldArray } from "react-hook-form";
 
 interface SourceFormProps {
   form: any;
+  sourceTypes: string[];
 }
 
-export function SourceForm({ form }: SourceFormProps) {
+export function SourceForm({ form, sourceTypes }: SourceFormProps) {
   const { fields, append } = useFieldArray({
     name: "source",
     control: form.control,
@@ -32,10 +34,9 @@ export function SourceForm({ form }: SourceFormProps) {
   return (
     <>
       {fields.map((field, index) => (
-        <>
+        <span key={field.id}>
           <FormField
             control={form.control}
-            key={field.id}
             name={`source.${index}.title`}
             render={({ field }) => (
               <FormItem>
@@ -63,14 +64,11 @@ export function SourceForm({ form }: SourceFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Podcast">Podcast</SelectItem>
-                    <SelectItem value="News">News</SelectItem>
-                    <SelectItem value="Article">Article</SelectItem>
-                    <SelectItem value="Video">Video</SelectItem>
-                    <SelectItem value="SocialNetwork">
-                      Social Network
-                    </SelectItem>
-                    <SelectItem value="Website">Website</SelectItem>
+                    {sourceTypes.map((sourceType) => (
+                      <SelectItem key={sourceType} value={sourceType}>
+                        {sourceType}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -79,7 +77,6 @@ export function SourceForm({ form }: SourceFormProps) {
           />
           <FormField
             control={form.control}
-            key={field.id}
             name={`source.${index}.url`}
             render={({ field }) => (
               <FormItem>
@@ -91,7 +88,7 @@ export function SourceForm({ form }: SourceFormProps) {
               </FormItem>
             )}
           />
-        </>
+        </span>
       ))}
 
       <Button
