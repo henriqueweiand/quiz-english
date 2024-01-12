@@ -36,10 +36,9 @@ export function QuestionForm({ form }: QuestionFormProps) {
   return (
     <>
       {questionFields.map((questionField, qIndex) => (
-        <>
+        <span key={questionField.id}>
           <FormField
             control={form.control}
-            key={questionField.id}
             name={`questions.${qIndex}.title`}
             render={({ field }) => (
               <FormItem>
@@ -53,10 +52,9 @@ export function QuestionForm({ form }: QuestionFormProps) {
           />
 
           {optionFields.map((optionField, oIndex) => (
-            <>
+            <span key={optionField.id}>
               <FormField
                 control={form.control}
-                key={optionField.id}
                 name={`questions.${qIndex}.options.${oIndex}.content`}
                 render={({ field }) => (
                   <FormItem>
@@ -92,7 +90,7 @@ export function QuestionForm({ form }: QuestionFormProps) {
                   </FormItem>
                 )}
               />
-            </>
+            </span>
           ))}
 
           <Button
@@ -104,7 +102,7 @@ export function QuestionForm({ form }: QuestionFormProps) {
           >
             Add Option
           </Button>
-        </>
+        </span>
       ))}
 
       <Button

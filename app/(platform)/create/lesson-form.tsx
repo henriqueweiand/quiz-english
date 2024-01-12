@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useFieldArray } from "react-hook-form";
+import TinyMce from "../_components/tinymce";
 
 interface LessonFormProps {
   form: any;
@@ -65,11 +66,17 @@ export function LessonForm({ form }: LessonFormProps) {
       <FormField
         control={form.control}
         name="explanation"
-        render={({ field }) => (
+        render={({ field: { onChange, ...rest } }) => (
           <FormItem>
             <FormLabel>Explanation</FormLabel>
             <FormControl>
-              <Textarea className="resize-none" {...field} />
+              <TinyMce
+                className="resize-none"
+                onEditorChange={(content: string) => {
+                  onChange(content);
+                }}
+                {...rest}
+              />
             </FormControl>
             <FormDescription>
               The explanation field is where you are going to teach the person

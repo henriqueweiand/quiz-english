@@ -32,10 +32,9 @@ export function SourceForm({ form }: SourceFormProps) {
   return (
     <>
       {fields.map((field, index) => (
-        <>
+        <span key={field.id}>
           <FormField
             control={form.control}
-            key={field.id}
             name={`source.${index}.title`}
             render={({ field }) => (
               <FormItem>
@@ -79,7 +78,6 @@ export function SourceForm({ form }: SourceFormProps) {
           />
           <FormField
             control={form.control}
-            key={field.id}
             name={`source.${index}.url`}
             render={({ field }) => (
               <FormItem>
@@ -91,7 +89,7 @@ export function SourceForm({ form }: SourceFormProps) {
               </FormItem>
             )}
           />
-        </>
+        </span>
       ))}
 
       <Button

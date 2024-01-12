@@ -6,12 +6,12 @@ import * as z from "zod";
 
 import { Form } from "@/components/ui/form";
 
-import { toast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { RelatedLessons } from "./_components/related-lessons";
 import { LessonForm } from "./lesson-form";
+import { QuestionForm } from "./question-form";
 import { SourceForm } from "./source-form";
 import { TagForm } from "./tag-form";
-import { QuestionForm } from "./question-form";
-import { Button } from "@/components/ui/button";
 
 const tags = [
   {
@@ -73,6 +73,12 @@ const profileFormSchema = z.object({
   tags: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
   }),
+  RelatedLessonsForm: z
+    .array(z.string())
+    .refine((value) => value.some((item) => item), {
+      message: "You have to select at least one item.",
+    })
+    .optional(),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -153,6 +159,8 @@ const CreatePage = ({}: CreatePageProps) => {
           <SourceForm form={form} />
           <TagForm form={form} tags={tags} />
           <QuestionForm form={form} />
+
+          {/* <RelatedLessons form={form} /> */}
 
           <div className="pt-4 border-t-2 mt-4">
             <Button type="submit">Create</Button>
