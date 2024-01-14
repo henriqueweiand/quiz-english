@@ -127,7 +127,7 @@ export const CreateClientPage = ({
   }
 
   return (
-    <div className="p-10">
+    <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex-col gap-6">
           <div>
