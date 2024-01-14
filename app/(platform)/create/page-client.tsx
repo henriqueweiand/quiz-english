@@ -15,16 +15,11 @@ import { SourceForm } from "./_components/source-form";
 import { TagForm } from "./_components/tag-form";
 
 const profileFormSchema = z.object({
-  title: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    }),
-  description: z.string().max(160).min(4),
-  explanation: z.string().max(160).min(4),
+  title: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  description: z.string(),
+  explanation: z.string(),
   difficultyLevel: z.string({
     required_error: "Please select the level.",
   }),
@@ -55,7 +50,8 @@ const profileFormSchema = z.object({
     .array(z.string())
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
-    }),
+    })
+    .optional(),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -67,10 +63,10 @@ const defaultValues: Partial<ProfileFormValues> = {
   difficultyLevel: "A1",
 
   source: [
-    { title: "Source 1", type: "Video", url: "https://shadcn.com" },
-    { title: "Source 2", type: "Video", url: "https://google.com" },
+    // { title: "Source 1", type: "Video", url: "https://shadcn.com" },
+    // { title: "Source 2", type: "Video", url: "https://google.com" },
   ],
-  tags: ["teste"],
+  tags: [],
   questions: [
     {
       title: "Question 1",

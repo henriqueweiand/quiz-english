@@ -4,16 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const profileFormSchema = z.object({
-  title: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    }),
-  description: z.string().max(160).min(4),
-  explanation: z.string().max(160).min(4),
+  title: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  description: z.string(),
+  explanation: z.string(),
   difficultyLevel: z.string({
     required_error: "Please select the level.",
   }),
