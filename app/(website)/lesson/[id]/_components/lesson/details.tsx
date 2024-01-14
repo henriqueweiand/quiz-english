@@ -3,6 +3,8 @@ interface DetailsProps {
 }
 
 export const Details = ({ data }: DetailsProps) => {
+  if (!data) return <></>;
+
   return (
     <section aria-labelledby="details-heading">
       <div className="flex flex-col items-center">
@@ -12,7 +14,10 @@ export const Details = ({ data }: DetailsProps) => {
         >
           Explanation
         </h2>
-        <p className="mt-3 max-w-3xl text-lg text-gray-600">{data}</p>
+        <p
+          className="mt-3 max-w-3xl text-lg text-gray-600"
+          dangerouslySetInnerHTML={{ __html: data }}
+        />
       </div>
     </section>
   );
