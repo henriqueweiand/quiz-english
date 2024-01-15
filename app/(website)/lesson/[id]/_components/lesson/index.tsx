@@ -76,9 +76,11 @@ export const Lesson = async ({ params }: LessonPageProps) => {
         </div>
       </div>
 
-      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
-        <Details data={lesson.explanation} />
-      </div>
+      {!!lesson.explanation && (
+        <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
+          <Details data={lesson.explanation} />
+        </div>
+      )}
 
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
         <h3 className="text-lg font-medium text-gray-900 mb-4">
