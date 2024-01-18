@@ -1,52 +1,10 @@
 import { db } from "@/lib/db";
 import { DifficultyLevel, SourceTypes } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-
-const profileFormSchema = z.object({
-  id: z.string(),
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  description: z.string(),
-  explanation: z.string(),
-  difficultyLevel: z.string({
-    required_error: "Please select the level.",
-  }),
-  source: z
-    .array(
-      z.object({
-        title: z.string(),
-        type: z.string(),
-        url: z.string().url({ message: "Please enter a valid URL." }),
-      })
-    )
-    .optional(),
-  questions: z.array(
-    z.object({
-      title: z.string(),
-      options: z.array(
-        z.object({
-          content: z.string(),
-          isCorrect: z.enum(["true", "false"]),
-        })
-      ),
-    })
-  ),
-  tags: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-  relatedLessons: z
-    .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: "You have to select at least one item.",
-    }),
-});
-
-type PUTData = z.infer<typeof profileFormSchema>;
+import { UpdateLessonFormValues } from "@platform/dashboard/edit/[id]/validation-format";
 
 export async function PUT(req: NextRequest, res: NextResponse) {
-  const payload = (await req.json()) as PUTData;
+  const payload = (await req.json()) as UpdateLessonFormValues;
 
   let sources;
   let tags;

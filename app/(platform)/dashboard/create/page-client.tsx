@@ -13,76 +13,12 @@ import { QuestionForm } from "@platform/dashboard/_components/question-form";
 import { RelatedLessonsForm } from "@platform/dashboard/_components/related-lesson-form";
 import { SourceForm } from "@platform/dashboard/_components/source-form";
 import { TagForm } from "@platform/dashboard/_components/tag-form";
+import {
+  CreateLessonFormValues,
+  createLessonFormSchema,
+} from "./validation-format";
 
-const profileFormSchema = z.object({
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  description: z.string(),
-  explanation: z.string(),
-  difficultyLevel: z.string({
-    required_error: "Please select the level.",
-  }),
-  source: z
-    .array(
-      z.object({
-        title: z.string(),
-        type: z.string(),
-        url: z.string().url({ message: "Please enter a valid URL." }),
-      })
-    )
-    .optional(),
-  questions: z.array(
-    z.object({
-      title: z.string(),
-      options: z.array(
-        z.object({
-          content: z.string(),
-          isCorrect: z.enum(["true", "false"]),
-        })
-      ),
-    })
-  ),
-  tags: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-  relatedLessons: z
-    .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: "You have to select at least one item.",
-    })
-    .optional(),
-});
-
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
-
-const defaultValues: Partial<ProfileFormValues> = {
-  // title: "Test title",
-  // description: "Test description",
-  // explanation: "Test explanation",
-  // difficultyLevel: "A1",
-  // source: [
-  //   { title: "Source 1", type: "Video", url: "https://shadcn.com" },
-  //   { title: "Source 2", type: "Video", url: "https://google.com" },
-  // ],
-  // tags: ["Present simple"],
-  // questions: [
-  //   {
-  //     title: "Question 1",
-  //     options: [
-  //       {
-  //         content: "Option 1",
-  //         isCorrect: "true",
-  //       },
-  //       {
-  //         content: "Option 2",
-  //         isCorrect: "false",
-  //       },
-  //     ],
-  //   },
-  // ],
-  // relatedLessons: ["6bcb61a4-595f-495e-a7f8-d4ae8fcd2e02"],
-};
+const defaultValues: Partial<CreateLessonFormValues> = {};
 
 interface CreateClientPageProps {
   tags?: Tag[];
@@ -97,13 +33,13 @@ export const CreateClientPage = ({
   sourceTypes,
   difficultyLevels,
 }: CreateClientPageProps) => {
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
+  const form = useForm<CreateLessonFormValues>({
+    resolver: zodResolver(createLessonFormSchema),
     defaultValues,
     mode: "onChange",
   });
 
-  function onSubmit(data: ProfileFormValues) {
+  function onSubmit(data: CreateLessonFormValues) {
     console.log(data);
 
     let url = "/api/create"; // replace with your API endpoint

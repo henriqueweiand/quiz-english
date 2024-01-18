@@ -2,63 +2,25 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 import { Form, FormDescription, FormLabel } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
+import { Lesson, Tag } from "@prisma/client";
 import { LessonForm } from "@platform/dashboard/_components/lesson-form";
 import { QuestionForm } from "@platform/dashboard/_components/question-form";
 import { RelatedLessonsForm } from "@platform/dashboard/_components/related-lesson-form";
 import { SourceForm } from "@platform/dashboard/_components/source-form";
 import { TagForm } from "@platform/dashboard/_components/tag-form";
-import { Lesson, Tag } from "@prisma/client";
-
-const profileFormSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  description: z.string(),
-  explanation: z.string(),
-  difficultyLevel: z.string({
-    required_error: "Please select the level.",
-  }),
-  source: z
-    .array(
-      z.object({
-        title: z.string().optional().nullable().default(""),
-        type: z.string(),
-        url: z.string().url({ message: "Please enter a valid URL." }),
-      })
-    )
-    .optional(),
-  questions: z.array(
-    z.object({
-      title: z.string(),
-      options: z.array(
-        z.object({
-          content: z.string(),
-          isCorrect: z.enum(["true", "false"]),
-        })
-      ),
-    })
-  ),
-  tags: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-  relatedLessons: z
-    .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: "You have to select at least one item.",
-    })
-    .optional(),
-});
-
-export type ProfileFormValues = z.infer<typeof profileFormSchema>;
+import {
+  UpdateLessonFormValues,
+  updateLessonFormSchema,
+} from "./validation-format";
 
 interface CreateClientPageProps {
   tags?: Tag[];
   lessons?: Lesson[];
-  lesson: Partial<ProfileFormValues>;
+  lesson: Partial<UpdateLessonFormValues>;
   sourceTypes: string[];
   difficultyLevels: string[];
 }
@@ -70,15 +32,15 @@ export const CreateClientPage = ({
   sourceTypes,
   difficultyLevels,
 }: CreateClientPageProps) => {
-  const defaultValues: Partial<ProfileFormValues> = lesson;
+  const defaultValues: Partial<UpdateLessonFormValues> = lesson;
 
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
+  const form = useForm<UpdateLessonFormValues>({
+    resolver: zodResolver(updateLessonFormSchema),
     defaultValues,
     mode: "onChange",
   });
 
-  function onSubmit(data: ProfileFormValues) {
+  function onSubmit(data: UpdateLessonFormValues) {
     let url = "/api/update";
 
     let options = {
