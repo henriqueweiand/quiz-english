@@ -7,12 +7,12 @@ import * as z from "zod";
 import { Form, FormDescription, FormLabel } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
+import { LessonForm } from "@platform/dashboard/_components/lesson-form";
+import { QuestionForm } from "@platform/dashboard/_components/question-form";
+import { RelatedLessonsForm } from "@platform/dashboard/_components/related-lesson-form";
+import { SourceForm } from "@platform/dashboard/_components/source-form";
+import { TagForm } from "@platform/dashboard/_components/tag-form";
 import { Lesson, Tag } from "@prisma/client";
-import { LessonForm } from "./_components/lesson-form";
-import { QuestionForm } from "./_components/question-form";
-import { RelatedLessonsForm } from "./_components/related-lesson-form";
-import { SourceForm } from "./_components/source-form";
-import { TagForm } from "./_components/tag-form";
 
 const profileFormSchema = z.object({
   id: z.string(),
@@ -25,7 +25,7 @@ const profileFormSchema = z.object({
   source: z
     .array(
       z.object({
-        title: z.string().optional().nullable(),
+        title: z.string().optional().nullable().default(""),
         type: z.string(),
         url: z.string().url({ message: "Please enter a valid URL." }),
       })
@@ -79,8 +79,6 @@ export const CreateClientPage = ({
   });
 
   function onSubmit(data: ProfileFormValues) {
-    console.log(data);
-
     let url = "/api/update";
 
     let options = {

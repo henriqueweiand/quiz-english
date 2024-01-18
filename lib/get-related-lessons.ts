@@ -1,12 +1,21 @@
 import { db } from "@/lib/db";
 
 export const getRelatedLessonsById = async (id: string) => {
-  const lessons = await db.lesson.findMany({
+  const lessons = await db.lessonRelation.findMany({
+    select: {
+      relatedLessonId: true,
+    },
     where: {
-      relatedLessons: {
-        some: {
-          relatedLessonId: id,
-        },
+      lessonId: id,
+    },
+  });
+
+  const lessonIds = lessons.map((lesson) => lesson.relatedLessonId);
+
+  const lessonsRelated = await db.lesson.findMany({
+    where: {
+      id: {
+        in: lessonIds,
       },
     },
     include: {
@@ -33,5 +42,5 @@ export const getRelatedLessonsById = async (id: string) => {
     },
   });
 
-  return lessons;
+  return lessonsRelated;
 };

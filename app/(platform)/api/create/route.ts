@@ -121,6 +121,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           lessonId: lesson.id,
           type: source.type as SourceTypes,
           url: source.url,
+          title: source.title,
         },
       });
     });
