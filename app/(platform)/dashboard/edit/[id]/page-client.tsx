@@ -15,9 +15,8 @@ import { SourceForm } from "./_components/source-form";
 import { TagForm } from "./_components/tag-form";
 
 const profileFormSchema = z.object({
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
+  id: z.string(),
+  title: z.string(),
   description: z.string(),
   explanation: z.string(),
   difficultyLevel: z.string({
@@ -26,7 +25,7 @@ const profileFormSchema = z.object({
   source: z
     .array(
       z.object({
-        title: z.string(),
+        title: z.string().optional().nullable(),
         type: z.string(),
         url: z.string().url({ message: "Please enter a valid URL." }),
       })
@@ -54,39 +53,12 @@ const profileFormSchema = z.object({
     .optional(),
 });
 
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
-
-const defaultValues: Partial<ProfileFormValues> = {
-  // title: "Test title",
-  // description: "Test description",
-  // explanation: "Test explanation",
-  // difficultyLevel: "A1",
-  // source: [
-  //   { title: "Source 1", type: "Video", url: "https://shadcn.com" },
-  //   { title: "Source 2", type: "Video", url: "https://google.com" },
-  // ],
-  // tags: ["Present simple"],
-  // questions: [
-  //   {
-  //     title: "Question 1",
-  //     options: [
-  //       {
-  //         content: "Option 1",
-  //         isCorrect: "true",
-  //       },
-  //       {
-  //         content: "Option 2",
-  //         isCorrect: "false",
-  //       },
-  //     ],
-  //   },
-  // ],
-  // relatedLessons: ["6bcb61a4-595f-495e-a7f8-d4ae8fcd2e02"],
-};
+export type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 interface CreateClientPageProps {
   tags?: Tag[];
   lessons?: Lesson[];
+  lesson: Partial<ProfileFormValues>;
   sourceTypes: string[];
   difficultyLevels: string[];
 }
@@ -94,9 +66,12 @@ interface CreateClientPageProps {
 export const CreateClientPage = ({
   tags,
   lessons,
+  lesson,
   sourceTypes,
   difficultyLevels,
 }: CreateClientPageProps) => {
+  const defaultValues: Partial<ProfileFormValues> = lesson;
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -106,14 +81,17 @@ export const CreateClientPage = ({
   function onSubmit(data: ProfileFormValues) {
     console.log(data);
 
-    let url = "/api/create"; // replace with your API endpoint
+    let url = "/api/update";
 
     let options = {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        lessonId: lesson.id,
+        ...data,
+      }),
     };
 
     fetch(url, options)
