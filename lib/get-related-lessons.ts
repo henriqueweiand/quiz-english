@@ -35,4 +35,3 @@ export const getRelatedLessonsById = async (id: string) => {
 
   return lessons;
 };
-
