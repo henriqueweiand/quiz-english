@@ -1,51 +1,10 @@
 import { db } from "@/lib/db";
 import { DifficultyLevel, SourceTypes } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-
-const profileFormSchema = z.object({
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  description: z.string(),
-  explanation: z.string(),
-  difficultyLevel: z.string({
-    required_error: "Please select the level.",
-  }),
-  source: z
-    .array(
-      z.object({
-        title: z.string(),
-        type: z.string(),
-        url: z.string().url({ message: "Please enter a valid URL." }),
-      })
-    )
-    .optional(),
-  questions: z.array(
-    z.object({
-      title: z.string(),
-      options: z.array(
-        z.object({
-          content: z.string(),
-          isCorrect: z.enum(["true", "false"]),
-        })
-      ),
-    })
-  ),
-  tags: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-  relatedLessons: z
-    .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: "You have to select at least one item.",
-    }),
-});
-
-type PUTData = z.infer<typeof profileFormSchema>;
+import { UpdateLessonFormValues } from "@platform/dashboard/edit/[id]/validation-format";
 
 export async function PUT(req: NextRequest, res: NextResponse) {
-  const payload = (await req.json()) as PUTData;
+  const payload = (await req.json()) as UpdateLessonFormValues;
 
   let sources;
   let tags;
@@ -55,7 +14,10 @@ export async function PUT(req: NextRequest, res: NextResponse) {
   if (!payload) return Response.json(false);
 
   // Create Lesson
-  const lesson = await db.lesson.create({
+  const lesson = await db.lesson.update({
+    where: {
+      id: payload.id,
+    },
     data: {
       title: payload.title,
       description: payload.description,
@@ -63,6 +25,14 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       difficultyLevel: payload.difficultyLevel as DifficultyLevel,
     },
   });
+
+  Promise.all([
+    db.option.deleteMany({ where: { lessonId: payload.id } }),
+    db.lessonQuestion.deleteMany({ where: { lessonId: payload.id } }),
+    db.lessonRelation.deleteMany({ where: { relatedLessonId: payload.id } }),
+    db.lessonTag.deleteMany({ where: { lessonId: payload.id } }),
+    db.source.deleteMany({ where: { lessonId: payload.id } }),
+  ]);
 
   // Create Questions and Options
   if (payload.questions) {
@@ -104,8 +74,8 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       async (relatedLesson) => {
         return await db.lessonRelation.create({
           data: {
-            lessonId: relatedLesson,
-            relatedLessonId: lesson.id,
+            lessonId: lesson.id,
+            relatedLessonId: relatedLesson,
           },
         });
       }
@@ -121,6 +91,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
           lessonId: lesson.id,
           type: source.type as SourceTypes,
           url: source.url,
+          title: source.title,
         },
       });
     });

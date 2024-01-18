@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import TinyMce from "../../../_components/tinymce";
+import TinyMce from "@platform/_components/tinymce";
 
 interface LessonFormProps {
   form: any;

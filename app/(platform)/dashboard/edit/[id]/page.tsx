@@ -12,7 +12,8 @@ import {
   SourceTypes,
   Tag,
 } from "@prisma/client";
-import { CreateClientPage, ProfileFormValues } from "./page-client";
+import { CreateClientPage } from "./page-client";
+import { UpdateLessonFormValues } from "./validation-format";
 
 interface EditPageProps {
   params: { id: string };
@@ -25,7 +26,9 @@ interface formatLessonProps extends Lesson {
   source: Source[];
 }
 
-function formatLesson(lesson: formatLessonProps): Partial<ProfileFormValues> {
+function formatLesson(
+  lesson: formatLessonProps
+): Partial<UpdateLessonFormValues> {
   let data = {
     ...lesson,
     id: lesson.id,
@@ -42,7 +45,7 @@ function formatLesson(lesson: formatLessonProps): Partial<ProfileFormValues> {
     });
   });
 
-  return data as Partial<ProfileFormValues>;
+  return data as Partial<UpdateLessonFormValues>;
 }
 
 const EditPage = async ({ params }: EditPageProps) => {

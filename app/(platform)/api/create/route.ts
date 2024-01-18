@@ -1,51 +1,10 @@
 import { db } from "@/lib/db";
 import { DifficultyLevel, SourceTypes } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-
-const profileFormSchema = z.object({
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  description: z.string(),
-  explanation: z.string(),
-  difficultyLevel: z.string({
-    required_error: "Please select the level.",
-  }),
-  source: z
-    .array(
-      z.object({
-        title: z.string(),
-        type: z.string(),
-        url: z.string().url({ message: "Please enter a valid URL." }),
-      })
-    )
-    .optional(),
-  questions: z.array(
-    z.object({
-      title: z.string(),
-      options: z.array(
-        z.object({
-          content: z.string(),
-          isCorrect: z.enum(["true", "false"]),
-        })
-      ),
-    })
-  ),
-  tags: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-  relatedLessons: z
-    .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: "You have to select at least one item.",
-    }),
-});
-
-type POSTData = z.infer<typeof profileFormSchema>;
+import { CreateLessonFormValues } from "@platform/dashboard/create/validation-format";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const payload = (await req.json()) as POSTData;
+  const payload = (await req.json()) as CreateLessonFormValues;
 
   let sources;
   let tags;
@@ -121,6 +80,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           lessonId: lesson.id,
           type: source.type as SourceTypes,
           url: source.url,
+          title: source.title,
         },
       });
     });

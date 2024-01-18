@@ -1,6 +1,6 @@
 import { Lesson } from "@prisma/client";
-import { DataTable } from "./_components/table/data-table";
-import { columns } from "./_components/table/columns";
+import { DataTable } from "@platform/dashboard/list/_components/table/data-table";
+import { columns } from "@platform/dashboard/list/_components/table/columns";
 
 interface ListPageProps {
   lessons: Lesson[];

@@ -38,11 +38,11 @@ export function SourceForm({ form, sourceTypes }: SourceFormProps) {
           <FormField
             control={form.control}
             name={`source.${index}.title`}
-            render={({ field }) => (
+            render={({ field: { value, ...rest } }) => (
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...rest} value={value || ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
