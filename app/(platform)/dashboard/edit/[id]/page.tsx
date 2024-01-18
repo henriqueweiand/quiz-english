@@ -13,7 +13,7 @@ import {
   Tag,
 } from "@prisma/client";
 import { CreateClientPage } from "./page-client";
-import { LessonFormValues } from "./validation-format";
+import { UpdateLessonFormValues } from "./validation-format";
 
 interface EditPageProps {
   params: { id: string };
@@ -26,7 +26,9 @@ interface formatLessonProps extends Lesson {
   source: Source[];
 }
 
-function formatLesson(lesson: formatLessonProps): Partial<LessonFormValues> {
+function formatLesson(
+  lesson: formatLessonProps
+): Partial<UpdateLessonFormValues> {
   let data = {
     ...lesson,
     id: lesson.id,
@@ -43,7 +45,7 @@ function formatLesson(lesson: formatLessonProps): Partial<LessonFormValues> {
     });
   });
 
-  return data as Partial<LessonFormValues>;
+  return data as Partial<UpdateLessonFormValues>;
 }
 
 const EditPage = async ({ params }: EditPageProps) => {
