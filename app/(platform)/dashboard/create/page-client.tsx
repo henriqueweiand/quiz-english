@@ -8,11 +8,11 @@ import { Form, FormDescription, FormLabel } from "@/components/ui/form";
 
 import { Button } from "@/components/ui/button";
 import { Lesson, Tag } from "@prisma/client";
-import { LessonForm } from "./_components/lesson-form";
-import { QuestionForm } from "./_components/question-form";
-import { RelatedLessonsForm } from "./_components/related-lesson-form";
-import { SourceForm } from "./_components/source-form";
-import { TagForm } from "./_components/tag-form";
+import { LessonForm } from "@platform/dashboard/_components/lesson-form";
+import { QuestionForm } from "@platform/dashboard/_components/question-form";
+import { RelatedLessonsForm } from "@platform/dashboard/_components/related-lesson-form";
+import { SourceForm } from "@platform/dashboard/_components/source-form";
+import { TagForm } from "@platform/dashboard/_components/tag-form";
 
 const profileFormSchema = z.object({
   title: z.string().min(2, {
