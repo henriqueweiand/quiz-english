@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import TinyMce from "@platform/_components/tinymce";
+import AiTitleSuggest from "./ai-title-suggest";
 
 interface LessonFormProps {
   form: any;
@@ -26,6 +27,8 @@ interface LessonFormProps {
 }
 
 export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
+
+  
   return (
     <>
       <FormField
@@ -47,6 +50,9 @@ export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Description</FormLabel>
+
+            <AiTitleSuggest question="Generate a description for a quiz game in which has the title:" text={form.watch("title") || ""} form={form} />
+
             <FormControl>
               <Textarea className="resize-none" {...field} />
             </FormControl>

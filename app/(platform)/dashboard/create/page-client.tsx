@@ -17,6 +17,7 @@ import {
   CreateLessonFormValues,
   createLessonFormSchema,
 } from "./validation-format";
+import AiTitleSuggest from "../_components/ai-title-suggest";
 
 const defaultValues: Partial<CreateLessonFormValues> = {};
 
@@ -76,7 +77,7 @@ export const CreateClientPage = ({
             <LessonForm form={form} difficultyLevels={difficultyLevels} />
           </div>
 
-          <div>
+          {/* <div>
             <div className="mb-4">
               <FormLabel className="text-base">Sources</FormLabel>
               <FormDescription>
@@ -116,7 +117,7 @@ export const CreateClientPage = ({
 
           <div className="pt-4 border-t-2 mt-4">
             <Button type="submit">Create</Button>
-          </div>
+          </div> */}
         </form>
       </Form>
     </div>
