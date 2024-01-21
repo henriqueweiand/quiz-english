@@ -18,7 +18,10 @@ import {
   createLessonFormSchema,
 } from "./validation-format";
 
-const defaultValues: Partial<CreateLessonFormValues> = {};
+const defaultValues: Partial<CreateLessonFormValues> = {
+  title: '',
+  description: ''
+};
 
 interface CreateClientPageProps {
   tags?: Tag[];
@@ -76,7 +79,7 @@ export const CreateClientPage = ({
             <LessonForm form={form} difficultyLevels={difficultyLevels} />
           </div>
 
-          <div>
+          {/* <div>
             <div className="mb-4">
               <FormLabel className="text-base">Sources</FormLabel>
               <FormDescription>
@@ -116,7 +119,7 @@ export const CreateClientPage = ({
 
           <div className="pt-4 border-t-2 mt-4">
             <Button type="submit">Create</Button>
-          </div>
+          </div> */}
         </form>
       </Form>
     </div>

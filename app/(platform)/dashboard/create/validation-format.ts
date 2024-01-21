@@ -1,10 +1,8 @@
 import * as z from "zod";
 
 export const createLessonFormSchema = z.object({
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  description: z.string(),
+  title: z.string().default(''),
+  description: z.string().default(''),
   explanation: z.string(),
   difficultyLevel: z.string({
     required_error: "Please select the level.",
