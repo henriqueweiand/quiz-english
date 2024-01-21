@@ -18,27 +18,72 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useChat } from "ai/react";
 
 interface QuestionFormProps {
   form: UseFormReturn<any>
 }
 
+type QuizQuestion = {
+  topic: string;
+  question: string;
+  options: {
+    option1: {
+      body: string;
+      isItCorrect: boolean;
+    };
+    option2: {
+      body: string;
+      isItCorrect: boolean;
+    };
+    option3: {
+      body: string;
+      isItCorrect: boolean;
+    };
+  };
+};
+
 export function QuestionForm({ form }: QuestionFormProps) {
   const { control } = form;
+
+  const { setInput, handleSubmit, isLoading } = useChat({
+    api: '/api/ai-question',
+    onFinish: (data) => {
+      const { questions } = JSON.parse(data.content);
+
+      // console.log('finish', questions);
+      populate(questions);
+    }
+  });
 
   const { fields: questionFields, append: appendQuestion } = useFieldArray({
     name: "questions",
     control,
   });
 
-  const AIGenerate = () => {
-    console.log('AIGenerate');
+  const populate = (data: QuizQuestion[]) => {
+    appendQuestion(data);
+  }
+
+  const AIGenerate = (e: any) => {
+    const title = form.watch('title');
+    const explanation = form.watch('explanation');
+
+    if(!title || !explanation) {
+      alert("You have to fill out the fields title and explanation to generate quesitons with AI");
+    } else {
+      const question = `Title: ${title}. Explanation: ${explanation}`;
+  
+      // console.log(question);
+      setInput(question);
+      handleSubmit(e);
+    }
   }
 
   return (
     <>
       <div>
-        <Button size={'sm'} type="button" onClick={AIGenerate}>AI Generate</Button>
+        <Button size={'sm'} type="button" disabled={isLoading} onClick={AIGenerate}>AI Generate</Button>
       </div>
 
       {questionFields.map((questionField, qIndex) => (
