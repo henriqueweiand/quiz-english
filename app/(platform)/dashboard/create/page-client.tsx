@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 import { Form, FormDescription, FormLabel } from "@/components/ui/form";
 
@@ -43,9 +42,7 @@ export const CreateClientPage = ({
   });
 
   function onSubmit(data: CreateLessonFormValues) {
-    console.log(data);
-
-    let url = "/api/create"; // replace with your API endpoint
+    let url = "/api/create"; 
 
     let options = {
       method: "POST",
@@ -79,7 +76,7 @@ export const CreateClientPage = ({
             <LessonForm form={form} difficultyLevels={difficultyLevels} />
           </div>
 
-          {/* <div>
+          <div>
             <div className="mb-4">
               <FormLabel className="text-base">Sources</FormLabel>
               <FormDescription>
@@ -119,7 +116,7 @@ export const CreateClientPage = ({
 
           <div className="pt-4 border-t-2 mt-4">
             <Button type="submit">Create</Button>
-          </div> */}
+          </div>
         </form>
       </Form>
     </div>

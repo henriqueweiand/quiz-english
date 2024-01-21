@@ -37,9 +37,13 @@ export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
   });
 
   const generate = (e: any) => {
-    handleSubmit(e);
-    form.setValue('description', '');
-    setInput(question);
+      if(!question) {
+        alert('Fill out the title to use this feature');
+      } else {
+        handleSubmit(e);
+        form.setValue('description', '');
+        setInput(question);
+      }
    }
 
   useEffect(() => {
