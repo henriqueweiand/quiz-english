@@ -87,7 +87,7 @@ export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
               <div>
                 Description
               </div>
-              <Button size={'sm'} onClick={generate} disabled={isLoading}>AI Generate</Button>
+              <Button size={'sm'} type="button" onClick={generate} disabled={isLoading}>AI Generate</Button>
             </FormLabel>
             <FormControl>
               <Textarea className="resize-none" {...field} />

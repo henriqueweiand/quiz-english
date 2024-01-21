@@ -31,8 +31,16 @@ export function QuestionForm({ form }: QuestionFormProps) {
     control,
   });
 
+  const AIGenerate = () => {
+    console.log('AIGenerate');
+  }
+
   return (
     <>
+      <div>
+        <Button size={'sm'} type="button" onClick={AIGenerate}>AI Generate</Button>
+      </div>
+
       {questionFields.map((questionField, qIndex) => (
         <div key={questionField.id}>
           <FormField
