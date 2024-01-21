@@ -14,9 +14,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Tag } from "@prisma/client";
+import { UseFormReturn } from "react-hook-form";
 
 interface TagFormProps {
-  form: any;
+  form: UseFormReturn<any>
   tags?: Partial<Tag>[];
 }
 

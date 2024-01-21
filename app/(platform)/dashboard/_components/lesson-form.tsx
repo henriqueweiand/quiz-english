@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -19,26 +20,55 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import TinyMce from "@platform/_components/tinymce";
-import AiTitleSuggest from "./ai-title-suggest";
+import { useChat } from "ai/react";
+import { useEffect, useState } from "react";
+import { UseFormReturn } from 'react-hook-form';
 
 interface LessonFormProps {
-  form: any;
+  form: UseFormReturn<any>;
   difficultyLevels: string[];
 }
 
 export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
+  const [question, setQuestion] = useState('');
 
-  
+  const { messages, setInput, handleSubmit, isLoading } = useChat({
+    api: '/api/ai',
+  });
+
+  const generate = (e: any) => {
+    handleSubmit(e);
+    form.setValue('description', '');
+    setInput(question);
+   }
+
+  useEffect(() => {
+    if (messages.length > 1) {
+        const lastMessage = messages[messages.length - 1];
+        const content = lastMessage.content || "";
+        
+        if(question !== content)
+          form.setValue('description', content);
+    }
+  }, [form, messages, question])
+
   return (
     <>
       <FormField
         control={form.control}
         name="title"
-        render={({ field }) => (
+        render={({ field: { onChange, ...rest } }) => (
           <FormItem>
             <FormLabel>Title</FormLabel>
             <FormControl>
-              <Input placeholder="Mastering at Present Perfect" {...field} />
+              <Input placeholder="Mastering at Present " {...rest} onChange={(e) => {
+                const inputValue = e.target.value;
+                const question = `Create a description for a quiz which has a name "${inputValue}", it must be shorter and have emojis`;
+                
+                setQuestion(question);
+                onChange(e);
+                setInput(question);
+              }} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -49,10 +79,12 @@ export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
         name="description"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
-
-            <AiTitleSuggest question="Generate a description for a quiz game in which has the title:" text={form.watch("title") || ""} form={form} />
-
+            <FormLabel className="flex justify-between items-center">
+              <div>
+                Description
+              </div>
+              <Button size={'sm'} onClick={generate} disabled={isLoading}>AI Generate</Button>
+            </FormLabel>
             <FormControl>
               <Textarea className="resize-none" {...field} />
             </FormControl>

@@ -17,9 +17,11 @@ import {
   CreateLessonFormValues,
   createLessonFormSchema,
 } from "./validation-format";
-import AiTitleSuggest from "../_components/ai-title-suggest";
 
-const defaultValues: Partial<CreateLessonFormValues> = {};
+const defaultValues: Partial<CreateLessonFormValues> = {
+  title: '',
+  description: ''
+};
 
 interface CreateClientPageProps {
   tags?: Tag[];

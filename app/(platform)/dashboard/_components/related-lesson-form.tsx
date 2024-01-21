@@ -11,9 +11,10 @@ import {
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Lesson } from "@prisma/client";
+import { UseFormReturn } from "react-hook-form";
 
 interface RelatedLessonsFormProps {
-  form: any;
+  form: UseFormReturn<any>
   lessons?: Lesson[];
 }
 

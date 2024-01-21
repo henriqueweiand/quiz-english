@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useFieldArray, useForm } from "react-hook-form";
+import { UseFormReturn, useFieldArray, useForm } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 
 interface QuestionFormProps {
-  form: any;
+  form: UseFormReturn<any>
 }
 
 export function QuestionForm({ form }: QuestionFormProps) {

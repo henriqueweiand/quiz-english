@@ -18,10 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useFieldArray } from "react-hook-form";
+import { UseFormReturn, useFieldArray } from "react-hook-form";
 
 interface SourceFormProps {
-  form: any;
+  form: UseFormReturn<any>
   sourceTypes: string[];
 }
 
