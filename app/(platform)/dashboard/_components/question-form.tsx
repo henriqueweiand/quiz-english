@@ -20,33 +20,20 @@ import {
 } from "@/components/ui/select";
 import { useChat } from "ai/react";
 import { useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 interface QuestionFormProps {
   form: UseFormReturn<any>;
 }
 
-type QuizQuestion = {
-  topic: string;
-  question: string;
-  options: {
-    option1: {
-      body: string;
-      isItCorrect: boolean;
-    };
-    option2: {
-      body: string;
-      isItCorrect: boolean;
-    };
-    option3: {
-      body: string;
-      isItCorrect: boolean;
-    };
-  };
-};
-
 export function QuestionForm({ form }: QuestionFormProps) {
   const { control } = form;
   const [AIInputData, SetAIInputData] = useState<string>();
+
+  const { fields: questionFields, append: appendQuestion } = useFieldArray({
+    name: "questions",
+    control,
+  });
 
   const { messages, setInput, handleSubmit, isLoading } = useChat({
     api: "/api/ai-question",
@@ -59,35 +46,34 @@ export function QuestionForm({ form }: QuestionFormProps) {
       },
     ],
     onFinish: (data) => {
-      const { questions } = JSON.parse(data.content);
+      try {
+        const { questions } = JSON.parse(data.content);
 
-      // console.log('finish', questions);
-      populate(questions);
+        appendQuestion(questions);
+      } catch (e) {
+        toast({
+          description:
+            "There is a problem to handle the AI message, try again later",
+          variant: "destructive",
+        });
+      }
     },
   });
-
-  const { fields: questionFields, append: appendQuestion } = useFieldArray({
-    name: "questions",
-    control,
-  });
-
-  const populate = (data: QuizQuestion[]) => {
-    appendQuestion(data);
-  };
 
   const AIGenerate = (e: any) => {
     const title = form.watch("title");
     const explanation = form.watch("explanation");
 
     if (!title || !explanation) {
-      alert(
-        "You have to fill out the fields title and explanation to generate quesitons with AI"
-      );
+      toast({
+        description:
+          "You have to fill out the fields title and explanation to generate quesitons with AI",
+        variant: "destructive",
+      });
     } else {
       let question: string = `Provide a question with three possible answers about: Title: ${title}. Explanation: ${explanation}`;
 
       if (messages.length < 2 || AIInputData != question) {
-        console.log("mudou");
         SetAIInputData(question);
       } else {
         question = `Provide another question with three possible answers`;
