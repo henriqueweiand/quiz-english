@@ -19,9 +19,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useChat } from "ai/react";
+import { useState } from "react";
 
 interface QuestionFormProps {
-  form: UseFormReturn<any>
+  form: UseFormReturn<any>;
 }
 
 type QuizQuestion = {
@@ -45,15 +46,24 @@ type QuizQuestion = {
 
 export function QuestionForm({ form }: QuestionFormProps) {
   const { control } = form;
+  const [AIInputData, SetAIInputData] = useState<string>();
 
-  const { setInput, handleSubmit, isLoading } = useChat({
-    api: '/api/ai-question',
+  const { messages, setInput, handleSubmit, isLoading } = useChat({
+    api: "/api/ai-question",
+    initialMessages: [
+      {
+        id: "1",
+        role: "user",
+        content:
+          'You are a helpful assistant that generate quiz questions based on a topic. Respond with one short question and three plausible options/answers, of which only one is correct. Provide your answer in JSON structure like this {"questions": [{"title": "<The quiz question you generate>","options": [{"content": "<Plausible option 1>", "isCorrect": <"true" or "false">},{"content": "<Plausible option 2>", "isCorrect": <"true" or "false">},{"content": "<Plausible option 3>", "isCorrect": <"true" or "false">}]}]} use true or false as a string value',
+      },
+    ],
     onFinish: (data) => {
       const { questions } = JSON.parse(data.content);
 
       // console.log('finish', questions);
       populate(questions);
-    }
+    },
   });
 
   const { fields: questionFields, append: appendQuestion } = useFieldArray({
@@ -63,27 +73,42 @@ export function QuestionForm({ form }: QuestionFormProps) {
 
   const populate = (data: QuizQuestion[]) => {
     appendQuestion(data);
-  }
+  };
 
   const AIGenerate = (e: any) => {
-    const title = form.watch('title');
-    const explanation = form.watch('explanation');
+    const title = form.watch("title");
+    const explanation = form.watch("explanation");
 
-    if(!title || !explanation) {
-      alert("You have to fill out the fields title and explanation to generate quesitons with AI");
+    if (!title || !explanation) {
+      alert(
+        "You have to fill out the fields title and explanation to generate quesitons with AI"
+      );
     } else {
-      const question = `Title: ${title}. Explanation: ${explanation}`;
-  
-      // console.log(question);
+      let question: string = `Provide a question with three possible answers about: Title: ${title}. Explanation: ${explanation}`;
+
+      if (messages.length < 2 || AIInputData != question) {
+        console.log("mudou");
+        SetAIInputData(question);
+      } else {
+        question = `Provide another question with three possible answers`;
+      }
+
       setInput(question);
       handleSubmit(e);
     }
-  }
+  };
 
   return (
     <>
       <div>
-        <Button size={'sm'} type="button" disabled={isLoading} onClick={AIGenerate}>AI Generate</Button>
+        <Button
+          size={"sm"}
+          type="button"
+          disabled={isLoading}
+          onClick={AIGenerate}
+        >
+          AI Generate
+        </Button>
       </div>
 
       {questionFields.map((questionField, qIndex) => (
