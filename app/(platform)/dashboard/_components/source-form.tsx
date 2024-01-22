@@ -21,12 +21,12 @@ import {
 import { UseFormReturn, useFieldArray } from "react-hook-form";
 
 interface SourceFormProps {
-  form: UseFormReturn<any>
+  form: UseFormReturn<any>;
   sourceTypes: string[];
 }
 
 export function SourceForm({ form, sourceTypes }: SourceFormProps) {
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "source",
     control: form.control,
   });
@@ -88,6 +88,16 @@ export function SourceForm({ form, sourceTypes }: SourceFormProps) {
               </FormItem>
             )}
           />
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2"
+            onClick={() => remove(index)}
+          >
+            Remove
+          </Button>
         </span>
       ))}
 

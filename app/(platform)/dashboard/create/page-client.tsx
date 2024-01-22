@@ -16,6 +16,7 @@ import {
   CreateLessonFormValues,
   createLessonFormSchema,
 } from "./validation-format";
+import { toast } from "@/components/ui/use-toast";
 
 const defaultValues: Partial<CreateLessonFormValues> = {
   title: "",
@@ -55,10 +56,16 @@ export const CreateClientPage = ({
     fetch(url, options)
       .then((response) => response.json())
       .then((result) => {
-        console.log("Success:", result);
+        toast({
+          description: "Lesson created",
+        });
       })
       .catch((error) => {
-        console.error("Error:", error);
+        // console.error("Error:", error);
+        toast({
+          description: "There was a problem to create, try again later",
+          variant: "destructive",
+        });
       });
   }
 

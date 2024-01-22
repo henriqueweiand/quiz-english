@@ -16,6 +16,7 @@ import {
   UpdateLessonFormValues,
   updateLessonFormSchema,
 } from "./validation-format";
+import { toast } from "@/components/ui/use-toast";
 
 interface CreateClientPageProps {
   tags?: Tag[];
@@ -57,10 +58,16 @@ export const CreateClientPage = ({
     fetch(url, options)
       .then((response) => response.json())
       .then((result) => {
-        console.log("Success:", result);
+        toast({
+          description: "Lesson updated",
+        });
       })
       .catch((error) => {
-        console.error("Error:", error);
+        // console.error("Error:", error);
+        toast({
+          description: "There was a problem to update, try again later",
+          variant: "destructive",
+        });
       });
   }
 
@@ -117,7 +124,7 @@ export const CreateClientPage = ({
           </div>
 
           <div className="pt-4 border-t-2 mt-4">
-            <Button type="submit">Create</Button>
+            <Button type="submit">Update</Button>
           </div>
         </form>
       </Form>

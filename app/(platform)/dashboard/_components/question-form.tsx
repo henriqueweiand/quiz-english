@@ -30,7 +30,11 @@ export function QuestionForm({ form }: QuestionFormProps) {
   const { control } = form;
   const [AIInputData, SetAIInputData] = useState<string>();
 
-  const { fields: questionFields, append: appendQuestion } = useFieldArray({
+  const {
+    fields: questionFields,
+    append: appendQuestion,
+    remove: removeQuestion,
+  } = useFieldArray({
     name: "questions",
     control,
   });
@@ -114,18 +118,29 @@ export function QuestionForm({ form }: QuestionFormProps) {
           />
 
           <OptionsFieldArray control={control} qIndex={qIndex} />
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2"
+            onClick={() => removeQuestion(qIndex)}
+          >
+            Remove question
+          </Button>
         </div>
       ))}
 
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        className="mt-2"
-        onClick={() => appendQuestion({ title: "", options: [] })}
-      >
-        Add Question
-      </Button>
+      <>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="mt-2"
+          onClick={() => appendQuestion({ title: "", options: [] })}
+        >
+          Add Question
+        </Button>
+      </>
     </>
   );
 }
@@ -136,7 +151,11 @@ interface OptionsFieldArrayProps {
 }
 
 function OptionsFieldArray({ control, qIndex }: OptionsFieldArrayProps) {
-  const { fields: optionFields, append: appendOption } = useFieldArray({
+  const {
+    fields: optionFields,
+    append: appendOption,
+    remove: removeOption,
+  } = useFieldArray({
     name: `questions.${qIndex}.options`,
     control,
   });
@@ -182,6 +201,16 @@ function OptionsFieldArray({ control, qIndex }: OptionsFieldArrayProps) {
               </FormItem>
             )}
           />
+
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2"
+            onClick={() => removeOption(oIndex)}
+          >
+            Remove option
+          </Button>
         </div>
       ))}
 
