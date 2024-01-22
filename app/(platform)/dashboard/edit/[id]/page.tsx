@@ -35,8 +35,7 @@ function formatLesson(
     relatedLessons: lesson.relatedLessons.map(
       (rl: LessonRelation) => rl.relatedLessonId
     ),
-    questions: [],
-    // questions: lesson.questions.map((q: any) => q.question), // ### WIP Tests
+    questions: lesson.questions.map((q: any) => q.question),
     tags: lesson.tags.map((t: any) => t.tag.name),
   };
 
