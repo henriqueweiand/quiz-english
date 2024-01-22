@@ -1,8 +1,8 @@
 import * as z from "zod";
 
 export const createLessonFormSchema = z.object({
-  title: z.string().default(''),
-  description: z.string().default(''),
+  title: z.string().default(""),
+  description: z.string().default(""),
   explanation: z.string(),
   difficultyLevel: z.string({
     required_error: "Please select the level.",
@@ -10,7 +10,7 @@ export const createLessonFormSchema = z.object({
   source: z
     .array(
       z.object({
-        title: z.string(),
+        title: z.string().optional(),
         type: z.string(),
         url: z.string().url({ message: "Please enter a valid URL." }),
       })
