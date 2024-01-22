@@ -18,8 +18,8 @@ import {
 } from "./validation-format";
 
 const defaultValues: Partial<CreateLessonFormValues> = {
-  title: '',
-  description: ''
+  title: "",
+  description: "",
 };
 
 interface CreateClientPageProps {
@@ -42,7 +42,7 @@ export const CreateClientPage = ({
   });
 
   function onSubmit(data: CreateLessonFormValues) {
-    let url = "/api/create"; 
+    let url = "/api/create";
 
     let options = {
       method: "POST",
@@ -76,7 +76,7 @@ export const CreateClientPage = ({
             <LessonForm form={form} difficultyLevels={difficultyLevels} />
           </div>
 
-          {/* <div>
+          <div>
             <div className="mb-4">
               <FormLabel className="text-base">Sources</FormLabel>
               <FormDescription>
@@ -94,7 +94,7 @@ export const CreateClientPage = ({
               </FormDescription>
             </div>
             <TagForm form={form} tags={tags} />
-          </div> */}
+          </div>
 
           <div>
             <div className="mb-4">
@@ -104,7 +104,7 @@ export const CreateClientPage = ({
             <QuestionForm form={form} />
           </div>
 
-          {/* <div>
+          <div>
             <div className="mb-4">
               <FormLabel className="text-base">Related lessons</FormLabel>
               <FormDescription>
@@ -116,7 +116,7 @@ export const CreateClientPage = ({
 
           <div className="pt-4 border-t-2 mt-4">
             <Button type="submit">Create</Button>
-          </div> */}
+          </div>
         </form>
       </Form>
     </div>
