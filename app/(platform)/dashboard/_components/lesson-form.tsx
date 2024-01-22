@@ -22,7 +22,8 @@ import { Textarea } from "@/components/ui/textarea";
 import TinyMce from "@platform/_components/tinymce";
 import { useChat } from "ai/react";
 import { useEffect, useState } from "react";
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from "react-hook-form";
+import { toast } from "@/components/ui/use-toast";
 
 interface LessonFormProps {
   form: UseFormReturn<any>;
@@ -30,31 +31,33 @@ interface LessonFormProps {
 }
 
 export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
-  const [question, setQuestion] = useState('');
+  const [question, setQuestion] = useState("");
 
   const { messages, setInput, handleSubmit, isLoading } = useChat({
-    api: '/api/ai',
+    api: "/api/ai",
   });
 
   const generate = (e: any) => {
-      if(!question) {
-        alert('Fill out the title to use this feature');
-      } else {
-        handleSubmit(e);
-        form.setValue('description', '');
-        setInput(question);
-      }
-   }
+    if (!question) {
+      toast({
+        description: "Fill out the title to use this feature",
+        variant: "destructive",
+      });
+    } else {
+      handleSubmit(e);
+      form.setValue("description", "");
+      setInput(question);
+    }
+  };
 
   useEffect(() => {
     if (messages.length > 1) {
-        const lastMessage = messages[messages.length - 1];
-        const content = lastMessage.content || "";
-        
-        if(question !== content)
-          form.setValue('description', content);
+      const lastMessage = messages[messages.length - 1];
+      const content = lastMessage.content || "";
+
+      if (question !== content) form.setValue("description", content);
     }
-  }, [form, messages, question])
+  }, [form, messages, question]);
 
   return (
     <>
@@ -65,14 +68,18 @@ export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
           <FormItem>
             <FormLabel>Title</FormLabel>
             <FormControl>
-              <Input placeholder="Mastering at Present " {...rest} onChange={(e) => {
-                const inputValue = e.target.value;
-                const question = `Create a description for a quiz which has a name "${inputValue}", it must be shorter and have emojis`;
-                
-                setQuestion(question);
-                onChange(e);
-                setInput(question);
-              }} />
+              <Input
+                placeholder="Mastering at Present "
+                {...rest}
+                onChange={(e) => {
+                  const inputValue = e.target.value;
+                  const question = `Create a description for a quiz which has a name "${inputValue}", it must be shorter and have emojis`;
+
+                  setQuestion(question);
+                  onChange(e);
+                  setInput(question);
+                }}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -84,10 +91,15 @@ export function LessonForm({ form, difficultyLevels }: LessonFormProps) {
         render={({ field }) => (
           <FormItem>
             <FormLabel className="flex justify-between items-center">
-              <div>
-                Description
-              </div>
-              <Button size={'sm'} type="button" onClick={generate} disabled={isLoading}>AI Generate</Button>
+              <div>Description</div>
+              <Button
+                size={"sm"}
+                type="button"
+                onClick={generate}
+                disabled={isLoading}
+              >
+                AI Generate
+              </Button>
             </FormLabel>
             <FormControl>
               <Textarea className="resize-none" {...field} />

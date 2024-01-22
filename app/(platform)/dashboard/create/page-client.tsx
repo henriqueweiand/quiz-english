@@ -18,8 +18,8 @@ import {
 } from "./validation-format";
 
 const defaultValues: Partial<CreateLessonFormValues> = {
-  title: '',
-  description: ''
+  title: "",
+  description: "",
 };
 
 interface CreateClientPageProps {
@@ -42,7 +42,7 @@ export const CreateClientPage = ({
   });
 
   function onSubmit(data: CreateLessonFormValues) {
-    let url = "/api/create"; 
+    let url = "/api/create";
 
     let options = {
       method: "POST",
