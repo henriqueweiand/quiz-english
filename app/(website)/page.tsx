@@ -3,6 +3,7 @@ import { Filters } from "./_components/filters";
 import { Lessons } from "./_components/lessons";
 import { Hero } from "./_components/site/Hero";
 import { Header } from "./_components/site/Header";
+import Head from "next/head";
 
 interface WebSitePageProps {
   searchParams: {
@@ -16,6 +17,20 @@ interface WebSitePageProps {
 const WebSitePage = ({ searchParams }: WebSitePageProps) => {
   return (
     <>
+      <Head>
+        <title>Quiz-English</title>
+        <meta name="description" content="Brief description of your page" />
+        <meta property="og:title" content="Quiz-English" key="title" />
+        <meta property="og:description" content="Quiz-English" key="title" />
+        <meta name="twitter:title" content="Your Title" />
+        <meta name="twitter:description" content="Your description" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="keywords"
+          content="quiz, english, study, learners, language, podcasts, videos, articles, quizzes"
+        />
+      </Head>
       <Header />
       <main>
         <Hero />

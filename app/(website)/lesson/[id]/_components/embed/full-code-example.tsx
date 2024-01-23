@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
 interface FullCodeExampleProps {
   lessonId: string;
 }
 
-export const FullCodeExample: React.FC<FullCodeExampleProps> = ({ lessonId }) => {
+export const FullCodeExample: React.FC<FullCodeExampleProps> = ({
+  lessonId,
+}) => {
   return (
     <>
-      <p className="my-4">
-        Check out this full example below
-      </p>
+      <p className="my-4">Check out this full example below</p>
 
       <pre className="bg-gray-100 p-4 rounded-lg mt-4 overflow-auto">
         <code className="language-html">
@@ -24,7 +24,7 @@ export const FullCodeExample: React.FC<FullCodeExampleProps> = ({ lessonId }) =>
   <div id="iframe-container-1" style="height: 300px; margin: 30px auto; width: 50%;"></div>
   <div id="iframe-container-2" style="height: 300px; margin: 0 auto; width: 50%;"></div>
 
-  <script defer src="https://read-smart-beta.vercel.app/iframe-loader.min.js"></script>
+  <script defer src="https://quiz-english.com/iframe-loader.min.js"></script>
 
   <script>
     window.onload = function () {
@@ -37,7 +37,6 @@ export const FullCodeExample: React.FC<FullCodeExampleProps> = ({ lessonId }) =>
           `}
         </code>
       </pre>
-
     </>
   );
 };

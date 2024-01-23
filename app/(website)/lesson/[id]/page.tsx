@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { Lesson } from "./_components/lesson";
+import type { Metadata } from "next";
 
 interface LessonPageProps {
   params: { id: string };
@@ -7,6 +8,22 @@ interface LessonPageProps {
     tab?: string;
   };
 }
+
+export const metadata: Metadata = {
+  title: "Quiz-English: Lesson",
+  description: "",
+  keywords: [
+    "quiz",
+    "english",
+    "study",
+    "learners",
+    "language",
+    "podcasts",
+    "videos",
+    "articles",
+    "quizzes",
+  ],
+};
 
 const LessonPage = ({ params, searchParams }: LessonPageProps) => {
   return (
