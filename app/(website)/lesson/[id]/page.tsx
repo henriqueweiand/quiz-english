@@ -10,6 +10,7 @@ interface LessonPageProps {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://quiz-english.com/lesson"),
   title: "Quiz-English: Lesson",
   description: "",
   keywords: [

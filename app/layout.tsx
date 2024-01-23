@@ -12,6 +12,7 @@ const description =
   "Boost your English skills through interactive quizzes! Tailored for every level, get instant feedback and track your progress. Dive into fun learning for fluency!";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://quiz-english.com"),
   title: "Quiz-English",
   description,
   openGraph: {
