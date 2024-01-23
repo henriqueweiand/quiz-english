@@ -3,7 +3,7 @@ function loadIframe(divId, url) {
 
   var iframe = document.createElement("iframe");
 
-  iframe.src = "https://read-smart-beta.vercel.app/" + url;
+  iframe.src = "https://quiz-english.com/" + url;
   iframe.style.width = "100%";
   iframe.style.height = "100%";
   iframe.style.border = "0";
