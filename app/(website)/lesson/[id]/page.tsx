@@ -18,6 +18,14 @@ export async function generateMetadata({ params }: LessonPageProps) {
     metadataBase: new URL(`https://quiz-english.com/lesson/${params.id}`),
     title: `Quiz-English: ${lesson.title}`,
     description: lesson.description,
+    openGraph: {
+      title: `Quiz-English: ${lesson.title}`,
+      description: lesson.description,
+    },
+    twitter: {
+      title: `Quiz-English: ${lesson.title}`,
+      description: lesson.description,
+    },
     keywords: keywords.concat([
       "quiz",
       "english",
