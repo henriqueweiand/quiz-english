@@ -1,4 +1,4 @@
-import { FiltersOptions } from "./filters-options";
+import { FiltersOptions, FiltersOptionsSkeleton } from "./filters-options";
 import { MobileFilters } from "./mobile-filters";
 
 interface FiltersProps {
@@ -23,5 +23,11 @@ export const Filters = ({ search }: FiltersProps) => {
         <FiltersOptions search={search} />
       </div>
     </aside>
+  );
+};
+
+export const FiltersSkeleton = () => {
+  return (
+    <FiltersOptionsSkeleton />
   );
 };

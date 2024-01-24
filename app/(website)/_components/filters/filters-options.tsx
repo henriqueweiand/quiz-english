@@ -3,6 +3,7 @@ import { Tags } from "./tags";
 import { DifficultyLevel, SourceTypes } from "@prisma/client";
 import { Sources } from "./sources";
 import { DifficultLevels } from "./difficult-levels";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface FiltersOptionsProps {
   search?: {
@@ -63,5 +64,25 @@ export const FiltersOptions = async ({ search }: FiltersOptionsProps) => {
         </div>
       </form>
     </>
+  );
+};
+
+export const FiltersOptionsSkeleton = () => {
+  return (
+    <div className="space-y-10 divide-y divide-gray-200">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className={"pt-5"}>
+          <Skeleton className="h-4 w-32" />
+
+          <div className="space-y-3 pt-6">
+            <div className="flex gap-2 flex-wrap">
+              {[...Array(4)].map((_, i2) => (
+                <Skeleton key={i2} className="h-4 w-10" />
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };

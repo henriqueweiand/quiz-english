@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Filters } from "./_components/filters";
+import { Filters, FiltersSkeleton } from "./_components/filters";
 import { Lessons, LessonsSkeleton } from "./_components/lessons";
 import { Hero } from "./_components/site/Hero";
 import { Header } from "./_components/site/Header";
@@ -53,7 +53,7 @@ const WebSitePage = ({ searchParams }: WebSitePageProps) => {
           id="lessons"
         >
           <div className="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
-            <Suspense fallback={<>Loading tags</>}>
+            <Suspense fallback={<FiltersSkeleton />}>
               <Filters search={searchParams} />
             </Suspense>
 
