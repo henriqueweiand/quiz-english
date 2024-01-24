@@ -34,13 +34,10 @@ export const Lessons = async ({ search }: LessonsProps) => {
 
 export const LessonsSkeleton = () => {
   return (
-    <div>
-      <Skeleton className="h-8 w-[290px] mb-4" />
-      <div className="flex flex-col gap-y-4">
-        {[...Array(2)].map((_, i) => (
-          <CardSkeleton key={i} />
-        ))}
-      </div>
-    </div>
+    <>
+      {[...Array(6)].map((_, i) => (
+        <CardSkeleton key={i} />
+      ))}
+    </>
   );
 };

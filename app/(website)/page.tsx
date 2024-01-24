@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Filters } from "./_components/filters";
-import { Lessons } from "./_components/lessons";
+import { Lessons, LessonsSkeleton } from "./_components/lessons";
 import { Hero } from "./_components/site/Hero";
 import { Header } from "./_components/site/Header";
 import type { Metadata } from "next";
@@ -66,7 +66,7 @@ const WebSitePage = ({ searchParams }: WebSitePageProps) => {
               </h2>
 
               <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                <Suspense fallback={<>Loading lessons</>}>
+                <Suspense fallback={<LessonsSkeleton />}>
                   <Lessons search={searchParams} />
                 </Suspense>
               </div>

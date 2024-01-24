@@ -46,10 +46,20 @@ export const Card = ({ data }: CardProps) => {
 
 export const CardSkeleton = () => {
   return (
-    <div className="w-full flex">
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-32" />
-      </div>
-    </div>
+    <CardComponent>
+      <CardHeader>
+        <CardTitle>
+          <Skeleton className="h-8 w-full" />
+        </CardTitle>
+        <CardDescription>
+          <Skeleton className="h-4 w-32" />
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent className="gap-2 flex flex-row">
+        <Skeleton className="h-4 w-10" />
+        <Skeleton className="h-4 w-10" />
+      </CardContent>
+    </CardComponent>
   );
 };
