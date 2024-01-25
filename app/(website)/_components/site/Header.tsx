@@ -1,15 +1,14 @@
 "use client";
 
-import { Fragment } from "react";
-import Link from "next/link";
 import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
+import Link from "next/link";
+import { Fragment } from "react";
 
+import { Button } from "@/components/ui/button";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
-import { NavLink } from "./NavLink";
 import { ModeToggle } from "./ModeToggle";
-import { Button } from "@/components/ui/button";
 
 function MobileNavLink({
   href,
