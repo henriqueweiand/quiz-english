@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 
 interface HeaderProps {
   data?: string;
-  qtdQuestions: number;
-  description?: string | null;
+  qtdQuestions?: number;
+  description?: string | null | ReactNode;
   children: ReactNode;
 }
 
@@ -19,11 +19,15 @@ export const Header = ({
       </h2>
 
       <div className="flex items-center">
-        <p className="text-sm text-gray-900 sm:text-xl">
-          {qtdQuestions} Questions
-        </p>
+        {
+          !!qtdQuestions && (
+            <p className="text-sm text-gray-900 sm:text-xl border-r mr-4 pr-4">
+              {qtdQuestions} Questions
+            </p>
+          )
+        }
 
-        <div className="ml-4 border-l border-gray-300 pl-4">
+        <div className=" border-gray-300">
           <div className="flex items-center gap-2">{children}</div>
         </div>
       </div>

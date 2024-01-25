@@ -10,6 +10,7 @@ import { Nav } from "./nav";
 import { Play } from "./play";
 import { RelatedLessons } from "./related-lessons";
 import { Title } from "./title";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface LessonPageProps {
   params: { id: string };
@@ -97,6 +98,60 @@ export const Lesson = async ({ params }: LessonPageProps) => {
       <div className=" bg-white">
         <div className=" mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
           <Embed lessonId={params.id} />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const LessonSkeleton = () => {
+  return (
+    <>
+      <div className="bg-white">
+        <div className="mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-6 sm:pb-22 sm:pt-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+          <div className="lg:max-w-lg lg:self-end">
+            <Nav />
+
+            <div className="mt-4">
+              <Skeleton className="h-8 w-full" />
+            </div>
+
+            <Header
+              description={(
+                <div className="gap-2 flex flex-col pt-4">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                </div>
+              )}
+            >
+              <Skeleton className="h-4 w-10" />
+              <Skeleton className="h-4 w-10" />
+            </Header>
+          </div>
+
+          <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
+            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg">
+              <div className="flex flex-col gap-4">
+                <Skeleton className="h-6 w-full" />
+
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
+        <div className="gap-2 flex flex-col pt-4">
+          <div className="items-center flex justify-center mb-4">
+            <Skeleton className="h-8 w-60" />
+          </div>
+          {[...Array(6)].map((_, i2) => (
+            <Skeleton key={i2} className="h-4 w-full" />
+          ))}
         </div>
       </div>
     </>

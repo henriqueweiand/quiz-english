@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Lesson } from "./_components/lesson";
+import { Lesson, LessonSkeleton } from "./_components/lesson";
 import type { Metadata } from "next";
 import { getLesson } from "@/lib/get-lesson";
 
@@ -44,7 +44,7 @@ const LessonPage = ({ params, searchParams }: LessonPageProps) => {
   return (
     <div className="bg-gray-50">
       <main>
-        <Suspense fallback={<>Loading</>}>
+        <Suspense fallback={<LessonSkeleton />}>
           <Lesson params={params} />
         </Suspense>
       </main>
