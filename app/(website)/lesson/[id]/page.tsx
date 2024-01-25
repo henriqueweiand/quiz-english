@@ -42,13 +42,11 @@ export async function generateMetadata({ params }: LessonPageProps) {
 
 const LessonPage = ({ params, searchParams }: LessonPageProps) => {
   return (
-    <div className="bg-gray-50">
-      <main>
-        <Suspense fallback={<LessonSkeleton />}>
-          <Lesson params={params} />
-        </Suspense>
-      </main>
-    </div>
+    <main className="bg-white dark:bg-black">
+      <Suspense fallback={<LessonSkeleton />}>
+        <Lesson params={params} />
+      </Suspense>
+    </main>
   );
 };
 

@@ -21,7 +21,7 @@ export const Header = ({
       <div className="flex items-center">
         {
           !!qtdQuestions && (
-            <p className="text-sm text-gray-900 sm:text-xl border-r mr-4 pr-4">
+            <p className="text-sm sm:text-xl border-r mr-4 pr-4">
               {qtdQuestions} Questions
             </p>
           )
@@ -33,7 +33,7 @@ export const Header = ({
       </div>
 
       <div className="mt-4 space-y-6">
-        <p className="text-base text-gray-500">{description}</p>
+        <p className="text-base text-muted-foreground">{description}</p>
       </div>
     </section>
   );

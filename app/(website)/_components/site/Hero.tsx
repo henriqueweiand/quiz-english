@@ -3,7 +3,7 @@ import { Container } from "./Container";
 export function Hero() {
   return (
     <Container className="pb-16 pt-20 text-center lg:pt-32">
-      <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+      <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight sm:text-7xl">
         Elevate{" "}
         <span className="relative whitespace-nowrap text-blue-600">
           <svg
@@ -18,7 +18,7 @@ export function Hero() {
         </span>{" "}
         on the way to Fluency!
       </h1>
-      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
+      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-muted-foreground">
         Boost your English skills through interactive quizzes! Tailored for
         every level, get instant feedback and track your progress. Dive into fun
         learning for fluency!
