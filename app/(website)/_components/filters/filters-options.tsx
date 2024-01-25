@@ -4,6 +4,7 @@ import { DifficultyLevel, SourceTypes } from "@prisma/client";
 import { Sources } from "./sources";
 import { DifficultLevels } from "./difficult-levels";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
 
 interface FiltersOptionsProps {
   search?: {
@@ -22,9 +23,9 @@ export const FiltersOptions = async ({ search }: FiltersOptionsProps) => {
 
   return (
     <>
-      <form className="space-y-10 divide-y divide-gray-200">
+      <form className="space-y-10">
         <fieldset>
-          <legend className="block text-sm font-medium text-gray-900">
+          <legend className="block text-md text-muted-foreground">
             Tags
           </legend>
           <div className="space-y-3 pt-6">
@@ -34,9 +35,11 @@ export const FiltersOptions = async ({ search }: FiltersOptionsProps) => {
           </div>
         </fieldset>
 
-        <div className={"pt-5"}>
+        <Separator />
+
+        <div>
           <fieldset>
-            <legend className="block text-sm font-medium text-gray-900">
+            <legend className="block text-md text-muted-foreground">
               Sources
             </legend>
             <div className="space-y-3 pt-6">
@@ -47,9 +50,11 @@ export const FiltersOptions = async ({ search }: FiltersOptionsProps) => {
           </fieldset>
         </div>
 
-        <div className={"pt-5"}>
+        <Separator />
+
+        <div>
           <fieldset>
-            <legend className="block text-sm font-medium text-gray-900">
+            <legend className="block text-md text-muted-foreground">
               Difficult Levels
             </legend>
             <div className="space-y-3 pt-6">
@@ -69,9 +74,9 @@ export const FiltersOptions = async ({ search }: FiltersOptionsProps) => {
 
 export const FiltersOptionsSkeleton = () => {
   return (
-    <div className="space-y-10 divide-y divide-gray-200">
+    <div className="space-y-10">
       {[...Array(3)].map((_, i) => (
-        <div key={i} className={"pt-5"}>
+        <div key={i} className={""}>
           <Skeleton className="h-4 w-32" />
 
           <div className="space-y-3 pt-6">
@@ -81,6 +86,8 @@ export const FiltersOptionsSkeleton = () => {
               ))}
             </div>
           </div>
+
+          <Separator className="mt-10" />
         </div>
       ))}
     </div>

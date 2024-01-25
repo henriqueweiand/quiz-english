@@ -21,7 +21,7 @@ export const Lesson = async ({ params }: LessonPageProps) => {
 
   return (
     <>
-      <div className="bg-white">
+      <div>
         <div className="mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-6 sm:pb-22 sm:pt-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:max-w-lg lg:self-end">
             <Nav />
@@ -60,7 +60,7 @@ export const Lesson = async ({ params }: LessonPageProps) => {
             >
               {!!lesson.source.length && (
                 <>
-                  <div className="text-gray-500 h">Lesson material</div>
+                  <div className="text-muted-foreground h">Lesson material</div>
                   {lesson.source.map((source) => (
                     <BadgeWithLink
                       target="_blank"
@@ -84,7 +84,7 @@ export const Lesson = async ({ params }: LessonPageProps) => {
       )}
 
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">
+        <h3 className="text-lg font-medium mb-4">
           Related lessons
         </h3>
 
@@ -95,7 +95,7 @@ export const Lesson = async ({ params }: LessonPageProps) => {
         </div>
       </div>
 
-      <div className=" bg-white">
+      <div className="">
         <div className=" mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
           <Embed lessonId={params.id} />
         </div>

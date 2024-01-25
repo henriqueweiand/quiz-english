@@ -16,7 +16,7 @@ export const Embed: React.FC<EmbedProps> = ({ lessonId }) => {
         <h2 className="text-lg font-medium">
           Embed This Content {show ? "-" : "+"}
         </h2>
-        <div className="text-base text-gray-500">
+        <div className="text-base text-muted-foreground">
           Check out here, how can you insert this questions into your website.
         </div>
       </div>
@@ -39,8 +39,8 @@ export const Embed: React.FC<EmbedProps> = ({ lessonId }) => {
           <p className="my-4">
             Inside the tag head (if possible), insert the script below.
           </p>
-          <pre className="bg-gray-100 p-4 rounded-lg mt-4 overflow-auto">
-            <code className="language-html">
+          <pre className="bg-gray-100 dark:bg-slate-800 p-4 rounded-lg mt-4 overflow-auto">
+            <code className="language-html dark:font-light">
               {`<script defer src="https://quiz-english.com/iframe-loader.min.js"></script>`}
             </code>
           </pre>
@@ -49,8 +49,8 @@ export const Embed: React.FC<EmbedProps> = ({ lessonId }) => {
             Now, place the following code snippet inside your HTML file at the
             location where you want the quiz to appear on your webpage.
           </p>
-          <pre className="bg-gray-100 p-4 rounded-lg mt-4 overflow-auto">
-            <code className="language-html">
+          <pre className="bg-gray-100 dark:bg-slate-800 p-4 rounded-lg mt-4 overflow-auto">
+            <code className="language-html dark:font-light">
               {`<div id="your-quiz-container-1" style="height: 300px; margin: 30px auto; width: 50%;"></div>
 
 <script>

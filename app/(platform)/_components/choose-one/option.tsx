@@ -40,7 +40,7 @@ export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
             : ""
         )}
       >
-        <span className="text-sm text-gray-700">{label}</span>
+        <span className="text-sm ">{label}</span>
 
         <CircleIcon
           className="text-gray-300"

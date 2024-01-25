@@ -11,8 +11,8 @@ export const FullCodeExample: React.FC<FullCodeExampleProps> = ({
     <>
       <p className="my-4">Check out this full example below</p>
 
-      <pre className="bg-gray-100 p-4 rounded-lg mt-4 overflow-auto">
-        <code className="language-html">
+      <pre className="bg-gray-100 dark:bg-slate-800 p-4 rounded-lg mt-4 overflow-auto">
+        <code className="language-html dark:font-light">
           {`<!DOCTYPE html>
 <html lang="en">
 <head>
