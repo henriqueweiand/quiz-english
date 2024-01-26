@@ -3,6 +3,7 @@
 import { Question, Option } from "@prisma/client";
 import ChooseOne from "../choose-one";
 import { useState } from "react";
+import Finish from "../finish";
 
 interface QuestionWithOptions extends Question {
   options: Option[];
@@ -30,7 +31,7 @@ export const Game = ({ questions }: GameProps) => {
           options={question.options}
         />
       ) : (
-        <>Finish</>
+        <Finish />
       )}
     </>
   );
