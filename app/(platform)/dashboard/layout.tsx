@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, UserButton } from "@clerk/nextjs";
 
 import { MainNav } from "./_components/main-nav";
 
@@ -19,6 +19,12 @@ export default function RootLayout({
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
             <MainNav className="mx-6" />
+
+            <div className="ml-auto flex items-center space-x-4">
+              <UserButton
+                afterSignOutUrl="/"
+              />
+            </div>
           </div>
         </div>
 

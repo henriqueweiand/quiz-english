@@ -2,8 +2,15 @@ import { db } from "@/lib/db";
 import { DifficultyLevel, SourceTypes } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { CreateLessonFormValues } from "@platform/dashboard/create/validation-format";
+import { auth } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
+  const { userId } = auth();
+
+  if (userId !== "user_2bKX3bD3mYc4dSSLJCvOdsAQ2ag" && userId !== "user_2bKboVbNZoYdLB9ijIJ7crf8QnL") {
+    return false;
+  }
+
   const payload = (await req.json()) as CreateLessonFormValues;
 
   let sources;
