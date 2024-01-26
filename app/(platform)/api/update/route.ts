@@ -8,7 +8,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
   const { userId } = auth();
 
   if (userId !== "user_2bKX3bD3mYc4dSSLJCvOdsAQ2ag" && userId !== "user_2bKboVbNZoYdLB9ijIJ7crf8QnL") {
-    return false;
+    throw new Error('Invalid user ID');
   }
 
   const payload = (await req.json()) as UpdateLessonFormValues;
