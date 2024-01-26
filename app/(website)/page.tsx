@@ -19,6 +19,9 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://quiz-english.com"),
+  alternates: {
+    canonical: `https://quiz-english.com`,
+  },
   title: "Quiz-English",
   description,
   openGraph: {

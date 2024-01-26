@@ -16,6 +16,9 @@ export async function generateMetadata({ params }: LessonPageProps) {
 
   return {
     metadataBase: new URL(`https://quiz-english.com/lesson/${params.id}`),
+    alternates: {
+      canonical: `https://quiz-english.com/lesson/${params.id}`,
+    },
     title: `Quiz-English: ${lesson.title}`,
     description: lesson.description,
     openGraph: {

@@ -31,7 +31,7 @@ export const Card = ({ data }: CardProps) => {
           )}
         </CardHeader>
         {data.tags && (
-          <CardContent>
+          <CardContent className="gap-1 flex justify-items-start flex-wrap">
             {data.tags.map((tag) => (
               <Badge variant={"secondary"} key={tag.id}>
                 {tag.tag.name}
