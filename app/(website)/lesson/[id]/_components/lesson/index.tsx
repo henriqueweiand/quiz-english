@@ -11,6 +11,10 @@ import { Play } from "./play";
 import { RelatedLessons } from "./related-lessons";
 import { Title } from "./title";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SourceTypes } from "@prisma/client";
+import { SpotifyEmbed } from "../spotify-embed";
+import { Separator } from "@/components/ui/separator";
+import { YoutubeEmbed } from "../spotify-embed copy";
 
 interface LessonPageProps {
   params: { id: string };
@@ -54,13 +58,15 @@ export const Lesson = async ({ params }: LessonPageProps) => {
           </div>
 
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
-            <section
-              aria-labelledby="options-heading"
-              className="flex flex-col gap-2"
-            >
-              {!!lesson.source.length && (
-                <>
-                  <div className="text-muted-foreground h">Lesson material</div>
+            {!!lesson.source.length && (
+              <>
+                <div className="text-muted-foreground h pb-2">
+                  Lesson material
+                </div>
+                <section
+                  aria-labelledby="options-heading"
+                  className="flex flex-row gap-2"
+                >
                   {lesson.source.map((source) => (
                     <BadgeWithLink
                       target="_blank"
@@ -70,9 +76,30 @@ export const Lesson = async ({ params }: LessonPageProps) => {
                       name={!!source.title ? source.title : source.type}
                     />
                   ))}
-                </>
-              )}
-            </section>
+                </section>
+              </>
+            )}
+
+            {!!lesson.source.length && (
+              <>
+                <section className="flex flex-row gap-2 mt-2">
+                  <>
+                    {lesson.source.map((source) => {
+                      if (source.type === SourceTypes.Podcast && !!source.url) {
+                        return (
+                          <SpotifyEmbed key={source.id} url={source.url} />
+                        );
+                      }
+                      if (source.type === SourceTypes.Video && !!source.url) {
+                        return (
+                          <YoutubeEmbed key={source.id} url={source.url} />
+                        );
+                      }
+                    })}
+                  </>
+                </section>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -84,9 +111,7 @@ export const Lesson = async ({ params }: LessonPageProps) => {
       )}
 
       <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-22 lg:max-w-7xl lg:px-8">
-        <h3 className="text-lg font-medium mb-4">
-          Related lessons
-        </h3>
+        <h3 className="text-lg font-medium mb-4">Related lessons</h3>
 
         <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
           <Suspense fallback={<>Loading</>}>
@@ -117,13 +142,13 @@ export const LessonSkeleton = () => {
             </div>
 
             <Header
-              description={(
+              description={
                 <div className="gap-2 flex flex-col pt-4">
                   <Skeleton className="h-4 w-full" />
                   <Skeleton className="h-4 w-full" />
                   <Skeleton className="h-4 w-full" />
                 </div>
-              )}
+              }
             >
               <Skeleton className="h-4 w-10" />
               <Skeleton className="h-4 w-10" />

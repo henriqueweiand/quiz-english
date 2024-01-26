@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { CircleIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Cross2Icon, CheckIcon, CircleIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
 interface OptionProps {
@@ -22,31 +22,27 @@ export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
   const showCorrection = selected;
 
   return (
-    <label className="block">
-      <input
-        className="hidden peer"
-        name="question"
-        required
-        type="radio"
-        onChange={onClick}
-      />
-      <div
-        className={cn(
-          "flex items-center justify-between p-4 border border-gray-300 rounded-lg cursor-pointer",
-          showCorrection
-            ? isCorrect
-              ? "border-green-500"
-              : "border-red-500"
-            : ""
-        )}
-      >
-        <span className="text-sm ">{label}</span>
+    <Button
+      size={"lg"}
+      className="w-full flex items-center justify-between text-left"
+      variant={
+        showCorrection ? (isCorrect ? `default` : `destructive`) : `outline`
+      }
+      disabled={showCorrection ? true : false}
+      type="button"
+      onClick={onClick}
+    >
+      <span className="text-sm flex-1 text-left text-balance">{label}</span>
 
-        <CircleIcon
-          className="text-gray-300"
-          color={showCorrection ? (isCorrect ? "green" : "red") : "gray"}
-        />
-      </div>
-    </label>
+      {showCorrection ? (
+        isCorrect ? (
+          <CheckIcon className="ml-2 h-4 w-4" color="green" />
+        ) : (
+          <Cross2Icon className="ml-2 h-4 w-4" color="red" />
+        )
+      ) : (
+        <CircleIcon className="ml-2 h-4 w-4" />
+      )}
+    </Button>
   );
 };
