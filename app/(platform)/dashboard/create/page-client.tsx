@@ -3,21 +3,23 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { Form, FormDescription, FormLabel } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Lesson, Tag } from "@prisma/client";
+import { toast } from "@/components/ui/use-toast";
 import { LessonForm } from "@platform/dashboard/_components/lesson-form";
 import { QuestionForm } from "@platform/dashboard/_components/question-form";
 import { RelatedLessonsForm } from "@platform/dashboard/_components/related-lesson-form";
 import { SourceForm } from "@platform/dashboard/_components/source-form";
 import { TagForm } from "@platform/dashboard/_components/tag-form";
+import { Lesson, Tag } from "@prisma/client";
+import { redirect } from "next/navigation";
 import {
   CreateLessonFormValues,
   createLessonFormSchema,
 } from "./validation-format";
-import { toast } from "@/components/ui/use-toast";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useState } from "react";
 
 const defaultValues: Partial<CreateLessonFormValues> = {
   title: "",
@@ -37,6 +39,8 @@ export const CreateClientPage = ({
   sourceTypes,
   difficultyLevels,
 }: CreateClientPageProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<CreateLessonFormValues>({
     resolver: zodResolver(createLessonFormSchema),
     defaultValues,
@@ -44,6 +48,7 @@ export const CreateClientPage = ({
   });
 
   function onSubmit(data: CreateLessonFormValues) {
+    setIsLoading(true);
     let url = "/api/create";
 
     let options = {
@@ -60,6 +65,10 @@ export const CreateClientPage = ({
         toast({
           description: "Lesson created",
         });
+
+        setTimeout(() => {
+          redirect('/dashboard');
+        }, 2000);
       })
       .catch((error) => {
         // console.error("Error:", error);
@@ -67,6 +76,7 @@ export const CreateClientPage = ({
           description: "There was a problem to create, try again later",
           variant: "destructive",
         });
+        setIsLoading(false);
       });
   }
 
@@ -115,7 +125,7 @@ export const CreateClientPage = ({
           </Accordion>
 
           <div className="pt-4">
-            <Button type="submit">Create</Button>
+            <Button type="submit" disabled={isLoading}>Create</Button>
           </div>
         </form>
       </Form>

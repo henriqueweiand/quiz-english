@@ -18,6 +18,7 @@ import {
 } from "./validation-format";
 import { toast } from "@/components/ui/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useState } from "react";
 
 interface CreateClientPageProps {
   tags?: Tag[];
@@ -34,6 +35,8 @@ export const CreateClientPage = ({
   sourceTypes,
   difficultyLevels,
 }: CreateClientPageProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const defaultValues: Partial<UpdateLessonFormValues> = lesson;
 
   const form = useForm<UpdateLessonFormValues>({
@@ -43,6 +46,7 @@ export const CreateClientPage = ({
   });
 
   function onSubmit(data: UpdateLessonFormValues) {
+    setIsLoading(true);
     let url = "/api/update";
 
     let options = {
@@ -62,6 +66,7 @@ export const CreateClientPage = ({
         toast({
           description: "Lesson updated",
         });
+        setIsLoading(false);
       })
       .catch((error) => {
         // console.error("Error:", error);
@@ -69,6 +74,7 @@ export const CreateClientPage = ({
           description: "There was a problem to update, try again later",
           variant: "destructive",
         });
+        setIsLoading(false);
       });
   }
 
@@ -116,7 +122,7 @@ export const CreateClientPage = ({
           </Accordion>
 
           <div className="pt-4">
-            <Button type="submit">Update</Button>
+            <Button type="submit" disabled={isLoading}>Update</Button>
           </div>
         </form>
       </Form>

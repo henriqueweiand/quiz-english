@@ -36,7 +36,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
   Promise.all([
     db.option.deleteMany({ where: { lessonId: payload.id } }),
     db.lessonQuestion.deleteMany({ where: { lessonId: payload.id } }),
-    db.lessonRelation.deleteMany({ where: { relatedLessonId: payload.id } }),
+    db.lessonRelation.deleteMany({ where: { lessonId: lesson.id } }),
     db.lessonTag.deleteMany({ where: { lessonId: payload.id } }),
     db.source.deleteMany({ where: { lessonId: payload.id } }),
   ]);

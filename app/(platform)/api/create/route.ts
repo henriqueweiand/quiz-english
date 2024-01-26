@@ -70,8 +70,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       async (relatedLesson) => {
         return await db.lessonRelation.create({
           data: {
-            lessonId: relatedLesson,
-            relatedLessonId: lesson.id,
+            lessonId: lesson.id,
+            relatedLessonId: relatedLesson,
           },
         });
       }
