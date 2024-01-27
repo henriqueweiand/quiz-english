@@ -71,11 +71,9 @@ const WebSitePage = ({ searchParams }: WebSitePageProps) => {
                 Lessons
               </h2>
 
-              <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                <Suspense fallback={<LessonsSkeleton />}>
-                  <Lessons search={searchParams} />
-                </Suspense>
-              </div>
+              <Suspense fallback={<LessonsSkeleton />}>
+                <Lessons search={searchParams} />
+              </Suspense>
             </section>
           </div>
         </div>

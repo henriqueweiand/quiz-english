@@ -89,7 +89,11 @@ export const getSearch = async ({
     };
   }
 
-  const streams = await db.lesson.findMany({
+  const totalRecords = await db.lesson.count({
+    where: whereClause,
+  });
+
+  const data = await db.lesson.findMany({
     skip,
     take: perPage,
     include: {
@@ -113,5 +117,10 @@ export const getSearch = async ({
     where: whereClause,
   });
 
-  return streams;
+  return {
+    data,
+    total: Math.ceil(totalRecords / perPage),
+    currentPage: page,
+    perPage,
+  };
 };
