@@ -26,7 +26,7 @@ export const Lesson = async ({ params }: LessonPageProps) => {
   return (
     <>
       <div>
-        <div className="mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-6 sm:pb-22 sm:pt-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+        <div className="dark:bg-black mx-auto max-w-2xl px-4 pb-12 pt-5 sm:px-6 sm:pb-22 sm:pt-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:max-w-lg lg:self-end">
             <Nav />
 

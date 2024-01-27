@@ -24,7 +24,7 @@ export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
   return (
     <Button
       size={"lg"}
-      className="w-full flex items-center justify-between text-left"
+      className="w-full text-wrap text-left"
       variant={
         showCorrection ? (isCorrect ? `default` : `destructive`) : `outline`
       }
@@ -32,16 +32,16 @@ export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
       type="button"
       onClick={onClick}
     >
-      <span className="text-sm flex-1 text-left text-balance">{label}</span>
+      {label}
 
       {showCorrection ? (
         isCorrect ? (
-          <CheckIcon className="ml-2 h-4 w-4" color="green" />
+          <CheckIcon className="ml-2 !h-4 !w-4" color="green" />
         ) : (
-          <Cross2Icon className="ml-2 h-4 w-4" color="red" />
+          <Cross2Icon className="ml-2 !h-4 !w-4" color="red" />
         )
       ) : (
-        <CircleIcon className="ml-2 h-4 w-4" />
+        <CircleIcon className="ml-2 !h-4 !w-4" />
       )}
     </Button>
   );
