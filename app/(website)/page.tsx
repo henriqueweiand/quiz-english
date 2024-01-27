@@ -4,6 +4,8 @@ import { Lessons, LessonsSkeleton } from "./_components/lessons";
 import { Hero } from "./_components/site/Hero";
 import { Header } from "./_components/site/Header";
 import type { Metadata } from "next";
+import { Footer } from "./_components/site/Footer";
+import { Separator } from "@/components/ui/separator";
 
 interface WebSitePageProps {
   searchParams: {
@@ -77,6 +79,8 @@ const WebSitePage = ({ searchParams }: WebSitePageProps) => {
           </div>
         </div>
       </main>
+      <Separator />
+      <Footer />
     </>
   );
 };
