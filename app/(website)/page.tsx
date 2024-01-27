@@ -13,6 +13,7 @@ interface WebSitePageProps {
     tags?: string[];
     sources?: string[];
     levels?: string[];
+    page?: number;
   };
 }
 

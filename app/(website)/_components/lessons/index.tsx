@@ -8,6 +8,7 @@ interface LessonsProps {
     tags?: string[];
     levels?: string[];
     sources?: string[];
+    page?: number;
   };
 }
 

@@ -5,6 +5,8 @@ interface getSearchParams {
   tags?: string[];
   levels?: string[];
   sources?: string[];
+  page?: number;
+  perPage?: number;
 }
 
 export const getSearch = async ({
@@ -12,7 +14,10 @@ export const getSearch = async ({
   tags,
   levels,
   sources,
+  page = 1,
+  perPage = 15
 }: getSearchParams) => {
+  const skip = (page - 1) * perPage;
   let whereClause = {};
 
   if (term) {
@@ -85,6 +90,8 @@ export const getSearch = async ({
   }
 
   const streams = await db.lesson.findMany({
+    skip,
+    take: perPage,
     include: {
       questions: {
         include: {
