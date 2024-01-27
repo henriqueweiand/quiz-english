@@ -19,6 +19,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useState } from "react";
+import { Separator } from "@/components/ui/separator";
 
 interface CreateClientPageProps {
   tags?: Tag[];
@@ -84,6 +85,8 @@ export const CreateClientPage = ({
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex-col gap-6">
           <Accordion type="single" collapsible className="w-full">
 
+            <h2 className="pb-4">{lesson.title}</h2>
+
             <AccordionItem value="item-1">
               <AccordionTrigger>Lesson info</AccordionTrigger>
               <AccordionContent>
@@ -115,7 +118,7 @@ export const CreateClientPage = ({
             <AccordionItem value="item-5">
               <AccordionTrigger>Related lessons</AccordionTrigger>
               <AccordionContent>
-                <RelatedLessonsForm form={form} lessons={lessons} />
+                <RelatedLessonsForm ignoreLessonId={lesson.id} form={form} lessons={lessons} />
               </AccordionContent>
             </AccordionItem>
 
