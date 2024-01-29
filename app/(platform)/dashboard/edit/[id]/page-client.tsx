@@ -109,7 +109,7 @@ export const CreateClientPage = ({
             </AccordionItem>
 
             <AccordionItem value="item-4">
-              <AccordionTrigger>Questions</AccordionTrigger>
+              <AccordionTrigger>Questions ({form.getValues('questions')?.length})</AccordionTrigger>
               <AccordionContent>
                 <QuestionForm form={form} />
               </AccordionContent>
