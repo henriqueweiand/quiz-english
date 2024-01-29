@@ -1,6 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { Cross2Icon, CheckIcon, CircleIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 
@@ -22,27 +24,25 @@ export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
   const showCorrection = selected;
 
   return (
-    <Button
-      size={"lg"}
-      className="w-full text-wrap text-left"
-      variant={
-        showCorrection ? (isCorrect ? `default` : `destructive`) : `outline`
-      }
-      disabled={showCorrection ? true : false}
-      type="button"
+    <Card
+      className={cn("w-ful", showCorrection ? (isCorrect ? `bg-green-300` : `bg-red-300`) : ``)}
       onClick={onClick}
     >
-      {label}
+      <CardContent className={cn("flex justify-between items-center flex-nowrap py-2")}>
+        <div className="text-wrap text-left flex-1">
+          {label}
+        </div>
 
-      {showCorrection ? (
-        isCorrect ? (
-          <CheckIcon className="ml-2 !h-4 !w-4" color="green" />
+        {showCorrection ? (
+          isCorrect ? (
+            <CheckIcon className="ml-2 !h-4 !w-4" color="green" />
+          ) : (
+            <Cross2Icon className="ml-2 !h-4 !w-4" color="red" />
+          )
         ) : (
-          <Cross2Icon className="ml-2 !h-4 !w-4" color="red" />
-        )
-      ) : (
-        <CircleIcon className="ml-2 !h-4 !w-4" />
-      )}
-    </Button>
+          <CircleIcon className="ml-2 !h-4 !w-4" />
+        )}
+      </CardContent>
+    </Card>
   );
 };
