@@ -8,11 +8,12 @@ const navigation = {
         { name: 'News quiz', href: '/?sources=News' },
     ],
     levels: [
-        { name: 'A1 quiz', href: '/?levels=A1' },
-        { name: 'A2 quiz', href: '/?levels=A2' },
-        { name: 'B1 quiz', href: '/?levels=B1' },
-        { name: 'B2 quiz', href: '/?levels=B2' },
-        { name: 'C1 quiz', href: '/?levels=C1' },
+        { name: 'A1 Elementary', href: '/?levels=A1' },
+        { name: 'A2 Pre-intermediate', href: '/?levels=A2' },
+        { name: 'B1 Intermediate', href: '/?levels=B1' },
+        { name: 'B1 Upper-intermediate', href: '/?levels=B2' },
+        { name: 'C1 Advanced', href: '/?levels=C1' },
+        { name: 'C2 Proficient', href: '/?levels=C2' },
     ],
 }
 
