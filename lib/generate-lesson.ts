@@ -84,7 +84,7 @@ export const generateLesson = async () => {
     data: {
       title: lessonData.title,
       description: lessonData.description,
-      difficultyLevel: DifficultyLevel.A0,
+      difficultyLevel: DifficultyLevel.A1,
     }
   });
 
