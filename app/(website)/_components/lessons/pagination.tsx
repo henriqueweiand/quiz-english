@@ -27,9 +27,14 @@ export function LessonsPagination({ currentPage = 1, totalPages }: LessonsPagina
     return (
         <Pagination>
             <PaginationContent>
-                <PaginationItem>
-                    <PaginationPrevious href={pageRender(Number(currentPage) - 1)} />
-                </PaginationItem>
+                {
+                    currentPage != 1 && (
+                        <PaginationItem>
+                            <PaginationPrevious href={pageRender(Number(currentPage) - 1)} />
+                        </PaginationItem>
+                    )
+                }
+
                 {pages.map((page) => (
                     <PaginationItem key={page}>
                         <PaginationLink href={pageRender(Number(currentPage))} isActive={page === Number(currentPage)}>
