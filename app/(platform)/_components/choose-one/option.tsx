@@ -25,7 +25,7 @@ export const Option = ({ label, isCorrect, onChange }: OptionProps) => {
 
   return (
     <Card
-      className={cn("w-ful", showCorrection ? (isCorrect ? `bg-green-300` : `bg-red-300`) : ``)}
+      className={cn("w-ful", showCorrection ? (isCorrect ? `border-green-300` : `border-red-300`) : ``)}
       onClick={onClick}
     >
       <CardContent className={cn("flex justify-between items-center flex-nowrap py-2")}>
