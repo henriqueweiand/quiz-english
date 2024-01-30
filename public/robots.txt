@@ -1,9 +1,11 @@
 //robots.txt
 
-# Block all crawlers for /accounts
+# Block all crawlers for /dashboard
 User-agent: *
-Disallow: /accounts
+Disallow: /dashboard
 
 # Allow all crawlers
 User-agent: *
 Allow: /
+
+Sitemap: https://quiz-english.com/sitemap.xml
