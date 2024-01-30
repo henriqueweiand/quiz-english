@@ -1,10 +1,6 @@
-//robots.txt
-
-# Block all crawlers for /dashboard
 User-agent: *
 Disallow: /dashboard
 
-# Allow all crawlers
 User-agent: *
 Allow: /
 
