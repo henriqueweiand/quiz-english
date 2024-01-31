@@ -25,14 +25,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `https://quiz-english.com`,
   },
-  title: "Quiz-English",
+  title: "Quiz-English: Learn English by doing quizzes",
   description,
   openGraph: {
-    title: "Quiz-English",
+    title: "Quiz-English: Learn English by doing quizzes",
     description,
   },
   twitter: {
-    title: "Quiz-English",
+    title: "Quiz-English: Learn English by doing quizzes",
     description,
   },
   keywords: [
