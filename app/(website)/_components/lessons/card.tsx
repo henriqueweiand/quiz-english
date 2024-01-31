@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Lesson, LessonQuestion, LessonTag, Tag } from "@prisma/client";
+import { sanitizeURL } from "@/lib/utils";
 
 interface CardProps {
   data: Lesson & {
@@ -19,8 +20,10 @@ interface CardProps {
 }
 
 export const Card = ({ data }: CardProps) => {
+  const lessonURL = `/lesson/${data.id}/${sanitizeURL(data.title)}`;
+
   return (
-    <Link href={`/lesson/${data.id}`}>
+    <Link href={`${lessonURL}`}>
       <CardComponent className="hover:shadow-md hover:shadow-black-100">
         <CardHeader>
           <CardTitle>{data.title}</CardTitle>
