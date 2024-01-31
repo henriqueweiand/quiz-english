@@ -32,8 +32,8 @@ export function QuestionForm({ form }: QuestionFormProps) {
 
   const {
     fields: questionFields,
-    append: appendQuestion,
     remove: removeQuestion,
+    prepend: prependQuestion
   } = useFieldArray({
     name: "questions",
     control,
@@ -53,7 +53,7 @@ export function QuestionForm({ form }: QuestionFormProps) {
       try {
         const { questions } = JSON.parse(data.content);
 
-        appendQuestion(questions);
+        prependQuestion(questions);
       } catch (e) {
         toast({
           description:
@@ -136,7 +136,7 @@ export function QuestionForm({ form }: QuestionFormProps) {
           variant="outline"
           size="sm"
           className="mt-2"
-          onClick={() => appendQuestion({ title: "", options: [] })}
+          onClick={() => prependQuestion({ title: "", options: [] })}
         >
           Add Question
         </Button>
@@ -153,8 +153,8 @@ interface OptionsFieldArrayProps {
 function OptionsFieldArray({ control, qIndex }: OptionsFieldArrayProps) {
   const {
     fields: optionFields,
-    append: appendOption,
     remove: removeOption,
+    prepend: prependOption
   } = useFieldArray({
     name: `questions.${qIndex}.options`,
     control,
@@ -219,7 +219,7 @@ function OptionsFieldArray({ control, qIndex }: OptionsFieldArrayProps) {
         variant="outline"
         size="sm"
         className="mt-2"
-        onClick={() => appendOption({ content: "", isCorrect: "false" })}
+        onClick={() => prependOption({ content: "", isCorrect: "false" })}
       >
         Add Option
       </Button>

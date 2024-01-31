@@ -1,5 +1,6 @@
 import { getLessons } from '@/lib/get-lessons'
 import { getTags } from '@/lib/get-tags'
+import { sanitizeURL } from '@/lib/utils'
 import { DifficultyLevel, SourceTypes } from '@prisma/client'
 import { MetadataRoute } from 'next'
 
@@ -30,8 +31,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (lessons) {
         for (let index = 0; index < lessons.length; index++) {
             const lesson = lessons[index];
+            const lessonURL = `${BASE_URL}/lesson/${lesson.id}/${sanitizeURL(lesson.title)}`;
+
             sitemap.push({
-                url: `${BASE_URL}/lesson/${lesson.id}`,
+                url: lessonURL,
                 lastModified: new Date(),
                 changeFrequency: 'monthly',
                 priority: 1,
@@ -43,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         for (let index = 0; index < tags.length; index++) {
             const tag = tags[index];
             sitemap.push({
-                url: `${BASE_URL}?tags=${encodeURIComponent(tag.name)}`,
+                url: `${BASE_URL}?tags=${tag.name}`,
                 lastModified: new Date(),
                 changeFrequency: 'never',
                 priority: 0.9,

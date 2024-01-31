@@ -1,23 +1,28 @@
 import { Suspense } from "react";
 import { Lesson, LessonSkeleton } from "./_components/lesson";
-import type { Metadata } from "next";
 import { getLesson } from "@/lib/get-lesson";
+import { sanitizeURL } from "@/lib/utils";
 
 interface LessonPageProps {
-  params: { id: string };
+  params: { id: string[] };
   searchParams?: {
     tab?: string;
   };
 }
 
 export async function generateMetadata({ params }: LessonPageProps) {
-  const lesson = await getLesson(params.id);
+  const mappedParams = {
+    id: params.id[0]
+  }
+
+  const lesson = await getLesson(mappedParams.id);
   let keywords = lesson.tags.map(tag => tag.tag.name);
+  const lessonURL = `https://quiz-english.com/lesson/${params.id}/${sanitizeURL(lesson.title)}`;
 
   return {
-    metadataBase: new URL(`https://quiz-english.com/lesson/${params.id}`),
+    metadataBase: new URL(`${lessonURL}`),
     alternates: {
-      canonical: `https://quiz-english.com/lesson/${params.id}`,
+      canonical: lessonURL,
     },
     title: `Quiz-English: ${lesson.title}`,
     description: lesson.description,
@@ -44,10 +49,14 @@ export async function generateMetadata({ params }: LessonPageProps) {
 }
 
 const LessonPage = ({ params, searchParams }: LessonPageProps) => {
+  const mappedParams = {
+    id: params.id[0]
+  }
+
   return (
     <main className="bg-white dark:bg-black">
       <Suspense fallback={<LessonSkeleton />}>
-        <Lesson params={params} />
+        <Lesson params={mappedParams} />
       </Suspense>
     </main>
   );
