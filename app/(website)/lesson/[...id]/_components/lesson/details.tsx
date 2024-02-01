@@ -15,7 +15,7 @@ export const Details = ({ data }: DetailsProps) => {
           Explanation
         </h2>
         <p
-          className="mt-3 max-w-3xl text-lg text-muted-foreground"
+          className="mt-3 max-w-3xl text-lg tracking-[-0.003em] leading-[30px]"
           dangerouslySetInnerHTML={{ __html: data }}
         />
       </div>
