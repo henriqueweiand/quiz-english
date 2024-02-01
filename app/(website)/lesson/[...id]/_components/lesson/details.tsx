@@ -15,7 +15,7 @@ export const Details = ({ data }: DetailsProps) => {
           Explanation
         </h2>
         <article
-          className="prose mt-3 max-w-3xl text-lg tracking-[-0.003em] leading-[30px]"
+          className="prose dark:prose-invert prose-headings:text-indigo-400 mt-3 max-w-3xl text-lg tracking-[-0.003em] leading-[30px]"
           dangerouslySetInnerHTML={{ __html: data }}
         />
       </div>
