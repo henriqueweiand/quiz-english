@@ -1,6 +1,4 @@
-import { getLessons } from '@/lib/get-lessons'
 import { getTags } from '@/lib/get-tags'
-import { sanitizeURL } from '@/lib/utils'
 import { DifficultyLevel, SourceTypes } from '@prisma/client'
 import { MetadataRoute } from 'next'
 
@@ -21,26 +19,11 @@ type Sitemap = Array<{
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const BASE_URL = 'https://quiz-english.com';
 
-    const lessons = await getLessons();
     const tags = await getTags();
     const difficultyLevels: string[] = Object.values(DifficultyLevel);
     const sourceTypes: string[] = Object.values(SourceTypes);
 
     let sitemap = [] as Sitemap;
-
-    if (lessons) {
-        for (let index = 0; index < lessons.length; index++) {
-            const lesson = lessons[index];
-            const lessonURL = `${BASE_URL}/lesson/${lesson.id}/${sanitizeURL(lesson.title)}`;
-
-            sitemap.push({
-                url: lessonURL,
-                lastModified: new Date(),
-                changeFrequency: 'monthly',
-                priority: 1,
-            })
-        }
-    }
 
     if (tags) {
         for (let index = 0; index < tags.length; index++) {
