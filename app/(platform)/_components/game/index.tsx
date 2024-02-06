@@ -4,6 +4,7 @@ import { Question, Option } from "@prisma/client";
 import ChooseOne from "../choose-one";
 import { useState } from "react";
 import Finish from "../finish";
+import { Progress } from "@/components/ui/progress";
 
 interface QuestionWithOptions extends Question {
   options: Option[];
@@ -25,11 +26,14 @@ export const Game = ({ questions }: GameProps) => {
   return (
     <>
       {questionNumber < questions.length ? (
-        <ChooseOne
-          next={next}
-          title={question.title}
-          options={question.options}
-        />
+        <>
+          <Progress value={questionNumber * 100 / questions.length} className="w-full !h-1 mb-2 !border-none opacity-40" />
+          <ChooseOne
+            next={next}
+            title={question.title}
+            options={question.options}
+          />
+        </>
       ) : (
         <Finish />
       )}
