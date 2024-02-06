@@ -63,5 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     }
 
+    sitemap.push({
+        url: `https://forms.gle/rj7kUYrX5Y7Hxn1b9`,
+        lastModified: new Date(),
+        changeFrequency: 'never',
+        priority: 0.7,
+    })
+
     return sitemap;
 }

@@ -8,11 +8,11 @@ interface BadgeWithLinkProps {
   active: boolean;
   target?: "_blank" | "_self" | "_parent" | "_top";
   href?:
-    | {
-        pathname: string;
-        query?: { [index: string]: string };
-      }
-    | string;
+  | {
+    pathname: string;
+    query?: { [index: string]: string };
+  }
+  | string;
 }
 
 export const BadgeWithLink: React.FC<BadgeWithLinkProps> = ({

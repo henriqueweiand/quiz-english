@@ -15,6 +15,10 @@ const navigation = {
         { name: 'C1 Advanced', href: '/?levels=C1' },
         { name: 'C2 Proficient', href: '/?levels=C2' },
     ],
+    support: [
+        { name: 'Share a feedback', href: 'https://forms.gle/rj7kUYrX5Y7Hxn1b9' },
+        { name: 'Check your level', href: 'https://www.efset.org/' },
+    ]
 }
 
 export function Footer() {
@@ -42,6 +46,19 @@ export function Footer() {
                     <h3 className="text-sm font-semibold leading-6 ">English levels</h3>
                     <ul role="list" className="mt-6 space-y-4">
                         {navigation.levels.map((item) => (
+                            <li key={item.name}>
+                                <Link href={item.href} className="text-sm leading-6 text-muted-foreground">
+                                    {item.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="mt-10 md:mt-0">
+                    <h3 className="text-sm font-semibold leading-6 ">Useful</h3>
+                    <ul role="list" className="mt-6 space-y-4">
+                        {navigation.support.map((item) => (
                             <li key={item.name}>
                                 <Link href={item.href} className="text-sm leading-6 text-muted-foreground">
                                     {item.name}

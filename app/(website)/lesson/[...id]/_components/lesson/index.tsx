@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import { getLesson } from "@/lib/get-lesson";
 import { extractQuestions } from "@/lib/lesson-service";
 import { Suspense } from "react";
-import { BadgeWithLink } from "../../../../_components/badge-with-link";
 import { Embed } from "../embed";
 import { Details } from "./details";
 import { Header } from "./header";
@@ -13,8 +12,10 @@ import { Title } from "./title";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SourceTypes } from "@prisma/client";
 import { SpotifyEmbed } from "../spotify-embed";
-import { Separator } from "@/components/ui/separator";
 import { YoutubeEmbed } from "../spotify-embed copy";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { BadgeWithLink } from "@/app/(website)/_components/badge-with-link";
 
 interface LessonPageProps {
   params: { id: string };
@@ -60,6 +61,9 @@ export const Lesson = async ({ params }: LessonPageProps) => {
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             {!!lesson.source.length && (
               <>
+                <Button size={'sm'} className="p-0 m-0" variant={'link'}>
+                  <Link href={`https://forms.gle/rj7kUYrX5Y7Hxn1b9`} target="_blank">Share a feedback</Link>
+                </Button>
                 <div className="text-muted-foreground h pb-2">
                   Lesson material
                 </div>
