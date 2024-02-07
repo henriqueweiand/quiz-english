@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { FullCodeExample } from "./full-code-example";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface EmbedProps {
   lessonId: string;
@@ -66,7 +68,13 @@ window.onload = function () {
             This example works on any website! It can be: HTML, React, Angular,
             Wordpress, Gatsby, ...
             <br />
-            We are going to post more specific examples soon.
+            <Button asChild variant={'link'} className="ml-0 pl-0">
+              <Link target="_blank" href={'https://github.com/henriqueweiand/quiz-english-embed'}>Check out the example code</Link>
+            </Button>
+
+            <Button asChild variant={'link'} className="ml-0">
+              <Link target="_blank" href={'https://quiz-english-embed.vercel.app/'}>Real website example</Link>
+            </Button>
             <br />
           </p>
 
