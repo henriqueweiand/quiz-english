@@ -37,7 +37,7 @@ export function LessonsPagination({ currentPage = 1, totalPages }: LessonsPagina
 
                 {pages.map((page) => (
                     <PaginationItem key={page}>
-                        <PaginationLink href={pageRender(Number(currentPage))} isActive={page === Number(currentPage)}>
+                        <PaginationLink href={pageRender(Number(page))} isActive={page === Number(currentPage)}>
                             {page}
                         </PaginationLink>
                     </PaginationItem>
