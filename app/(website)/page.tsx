@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     description,
   },
   keywords: [
+    "trivia",
     "quiz",
     "english",
     "study",

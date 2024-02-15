@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: LessonPageProps) {
       description: lesson.description,
     },
     keywords: keywords.concat([
+      "trivia",
       "quiz",
       "english",
       "study",
