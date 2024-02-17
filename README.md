@@ -1,4 +1,4 @@
-![React email cover](https://quiz-english.com/quiz-english.png)
+![Quiz English cover](https://quiz-english.com/quiz-english.png)
 
 <div align="center"><strong>Quiz-English</strong></div>
 <div align="center">Elevate Your English on the way to Fluency!.</div>
