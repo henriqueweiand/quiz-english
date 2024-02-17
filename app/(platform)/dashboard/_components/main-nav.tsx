@@ -21,7 +21,9 @@ export async function MainNav({
         Website
       </Link>
       {
-        (userId === "user_2bKX3bD3mYc4dSSLJCvOdsAQ2ag" || userId === "user_2bKboVbNZoYdLB9ijIJ7crf8QnL") ? (
+        // ### Temporary fixed values, if you use this project, you'll have to update it
+        userId === "user_2bKX3bD3mYc4dSSLJCvOdsAQ2ag" ||
+        userId === "user_2bKboVbNZoYdLB9ijIJ7crf8QnL" ? (
           <>
             <Link
               href="/dashboard/create"
@@ -36,9 +38,10 @@ export async function MainNav({
               List
             </Link>
           </>
-        ) : ''
+        ) : (
+          ""
+        )
       }
-
     </nav>
   );
 }

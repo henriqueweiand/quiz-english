@@ -13,8 +13,12 @@ export const runtime = "edge";
 export async function POST(req: Request) {
   const { userId } = auth();
 
-  if (userId !== "user_2bKX3bD3mYc4dSSLJCvOdsAQ2ag" && userId !== "user_2bKboVbNZoYdLB9ijIJ7crf8QnL") {
-    throw new Error('Invalid user ID');
+  if (
+    userId !== "user_2bKX3bD3mYc4dSSLJCvOdsAQ2ag" &&
+    userId !== "user_2bKboVbNZoYdLB9ijIJ7crf8QnL"
+  ) {
+    // ### Temporary fixed values, if you use this project, you'll have to update it
+    throw new Error("Invalid user ID");
   }
 
   const { messages } = await req.json();
