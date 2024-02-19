@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { ModeToggle } from "./ModeToggle";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 function MobileNavLink({
   href,
@@ -106,11 +107,19 @@ export function Header() {
             </Link>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
-            <Button variant={'ghost'} className="hidden md:block">
+            <Button variant={"ghost"} className="hidden md:block">
               <Link href="/dashboard">Sign in</Link>
             </Button>
-            <Button variant={'ghost'}>
+            <Button variant={"ghost"} className="hidden md:block">
               <Link href="#lessons">Get started</Link>
+            </Button>
+            <Button variant={"ghost"}>
+              <Link
+                href="https://github.com/henriqueweiand/quiz-english"
+                target="_blank"
+              >
+                <GitHubLogoIcon className="h-4 w-4" />
+              </Link>
             </Button>
             <ModeToggle />
             <div className="-mr-1 md:hidden">
