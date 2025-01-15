@@ -21,8 +21,6 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
-          <Analytics />
-          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
