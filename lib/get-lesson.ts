@@ -27,3 +27,13 @@ export const getLesson = async (id: string) => {
 
   return lesson;
 };
+
+export const getAllLessonIds = async () => {
+  const lessons = await db.lesson.findMany({
+    select: {
+      id: true,
+    },
+  });
+
+  return lessons.map(lesson => lesson.id);
+};

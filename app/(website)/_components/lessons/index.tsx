@@ -12,12 +12,11 @@ interface LessonsProps {
     sources?: string[];
     page?: number;
   };
+  data: any[];
+  total: number;
 }
 
-export const Lessons = async ({ search }: LessonsProps) => {
-  // const { term } = search;
-  const { data, total } = await getSearch(search);
-
+export const Lessons = ({ search, data, total }: LessonsProps) => {
   if (data.length === 0) {
     return (
       <div>

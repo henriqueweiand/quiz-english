@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Lesson, LessonSkeleton } from "./_components/lesson";
-import { getLesson } from "@/lib/get-lesson";
+import { getLesson, getAllLessonIds } from "@/lib/get-lesson";
 import { sanitizeURL } from "@/lib/utils";
 
 interface LessonPageProps {
@@ -49,7 +49,15 @@ export async function generateMetadata({ params }: LessonPageProps) {
   }
 }
 
-const LessonPage = ({ params, searchParams }: LessonPageProps) => {
+export async function generateStaticParams() {
+  const paths = await getAllLessonIds();
+
+  return paths.map((id: string) => ({
+    id: [id]
+  }));
+}
+
+const LessonPage = async ({ params, searchParams }: LessonPageProps) => {
   const mappedParams = {
     id: params.id[0]
   }

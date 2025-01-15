@@ -6,6 +6,7 @@ import { Header } from "./_components/site/Header";
 import type { Metadata } from "next";
 import { Footer } from "./_components/site/Footer";
 import { Separator } from "@/components/ui/separator";
+import { getSearch } from "@/lib/search-service";
 
 interface WebSitePageProps {
   searchParams: {
@@ -15,6 +16,8 @@ interface WebSitePageProps {
     levels?: string[];
     page?: number;
   };
+  data?: any[];
+  total?: number;
 }
 
 const description =
@@ -49,7 +52,25 @@ export const metadata: Metadata = {
   ],
 };
 
-const WebSitePage = ({ searchParams }: WebSitePageProps) => {
+export async function generateStaticParams(test: any) {
+  // Define static parameters for pre-rendering
+  return [{}];
+}
+
+const WebSitePage = async ({ searchParams }: any) => {
+  let data = [];
+  let total = 0;
+
+  if (Object.keys(searchParams).length === 0) {
+    const result = await getSearch({});
+    data = result.data;
+    total = result.total;
+  } else {
+    const result = await getSearch(searchParams);
+    data = result.data;
+    total = result.total;
+  }
+
   return (
     <>
       <Header />
@@ -73,7 +94,7 @@ const WebSitePage = ({ searchParams }: WebSitePageProps) => {
               </h2>
 
               <Suspense fallback={<LessonsSkeleton />}>
-                <Lessons search={searchParams} />
+                <Lessons search={searchParams} data={data} total={total} />
               </Suspense>
             </section>
           </div>
