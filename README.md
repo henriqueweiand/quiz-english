@@ -4,7 +4,7 @@
 <div align="center">Elevate Your English on the way to Fluency!.</div>
 <br />
 <div align="center">
-<a href="https://quiz-english.com/">Website</a> 
+<a href="https://quiz-english.app/">Website</a> 
 <span> · </span>
 <a href="https://github.com/henriqueweiand/quiz-english">GitHub</a> 
 </div>
